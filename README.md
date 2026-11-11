@@ -84,3 +84,11 @@ The scenario form is saved to browser localStorage for convenience; delete site 
 ## License and attribution
 
 PVGIS is a public service of the European Commission Joint Research Centre; this project is independent and not an official EU product. Respect upstream API terms and attribution requirements.
+
+## Investment Studio redesign (2026-11-11)
+
+The current production interface has a compact, responsive financial-cockpit design, with clear Site / Usage / Costs tabs, PVGIS dataset and period provenance, English/Greek labels, printable results and CSV export. The live result uses official PVGIS data, while the financial model runs locally in the browser. Hypothetical one-change-at-a-time levers recalculate NPV immediately using the last verified monthly PVGIS production: +10 percentage points of self-use (capped at 100%), -10% installed cost (not below grant), and +10% avoidable grid-energy price. These are **not recommendations**, quotes, confidence intervals or real-time tariff feeds.
+
+**Financial accuracy warning:** `importRate` is the *avoidable variable cost* of consuming a kWh from the grid, not necessarily the entire retail bill including unavoidable fixed charges. `exportRate` is an assumed credit per exported kWh; confirm eligibility, grid rules, settlement and actual supplier terms. The model does not simulate a battery, financing, hourly consumption, tax effects, or tiered time-of-use rates. The self-use percentage is a manually set coincidence assumption, capped by monthly demand.
+
+For Git-connected Cloudflare Pages: `main` is the production branch, `npm run build` is the build command, and `dist` is the output directory. The Pages Functions in `functions/api/` deploy alongside static assets. No credentials or subscription APIs are required. Run `npm run check` locally before merging. Revert the merge commit or roll back the Pages deployment to restore the previous dashboard; the app stores only editable settings locally, no server database exists.

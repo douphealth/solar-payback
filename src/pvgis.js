@@ -16,12 +16,19 @@ export function parsePvgis(body) {
   if (Number.isFinite(reportedAnnual) && reportedAnnual > 0 && Math.abs(reportedAnnual - annualKwh) / reportedAnnual > .04) {
     throw new TypeError('PVGIS yearly and monthly energy values disagree');
   }
-  const radiationDatabase = body?.inputs?.meteo_data?.radiation_db;
+  const meta = body?.inputs?.meteo_data || {};
+  const radiationDatabase = meta.radiation_db;
+  const start = Number(meta.year_min);
+  const end = Number(meta.year_max);
+  const period = Number.isInteger(start) && Number.isInteger(end) && start >= 1980 && end <= 2100 && end >= start
+    ? `${start}–${end}` : 'Historical climate series; exact years not supplied';
+  const irradiation = Number(body?.outputs?.totals?.fixed?.['H(i)_y']);
   return {
     monthlyKwh: values, annualKwh: Math.round(annualKwh * 10) / 10,
     dataset: typeof radiationDatabase === 'string' ? radiationDatabase : 'PVGIS 5.3 (dataset unspecified)',
+    annualIrradiationKwhM2: Number.isFinite(irradiation) && irradiation > 0 ? irradiation : null,
     source: 'European Commission JRC · PVGIS 5.3',
-    dataPeriod: 'Climatological historical series (typically 2005–2023; region-dependent)',
+    dataPeriod: period,
     documentation: 'https://joint-research-centre.ec.europa.eu/photovoltaic-geographical-information-system-pvgis/using-pvgis-5/api-non-interactive-service_en'
   };
 }
