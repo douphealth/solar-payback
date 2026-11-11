@@ -121,7 +121,10 @@ function renderProduction(monthly) {
   chart.replaceChildren();
   monthly.forEach((kwh, i) => {
     const column = document.createElement('div'); column.className = 'chart-col';
-    column.title = `${months[i]}: ${number(kwh)} kWh`;
+    const variation = solar.monthly[i]?.variabilityKwh;
+    const variationText = variation != null && Number.isFinite(variation)
+      ? ` · ${lang === 'el' ? 'Τυπική ετήσια απόκλιση' : 'Year-to-year SD'}: ${number(variation)} kWh` : '';
+    column.title = `${months[i]}: ${number(kwh)} kWh${variationText}`;
     column.setAttribute('aria-label', column.title);
     const track = document.createElement('div'); track.className = 'bar-track';
     const bar = document.createElement('div'); bar.className = 'bar-inner';
@@ -195,6 +198,12 @@ function renderResult() {
   try { result=calculateFinance(solar.monthly.map((x)=>x.kwh),readModel()); }
   catch (error) { emptyResults();status(error.message,'error');return; }
   const m=result;
+  // Never keep a fixed 25-year caption when the user selects a new horizon.
+  document.querySelectorAll('[data-i18n="netValue"]').forEach((node) => {
+    node.textContent = lang === 'el' ? `Καθαρό όφελος ${m.config.years}ετίας` : `${m.config.years}-year net value`;
+  });
+  const modelCaption = document.querySelector('[data-i18n="financialModel"]');
+  if (modelCaption) modelCaption.textContent = lang === 'el' ? `ΟΙΚΟΝΟΜΙΚΟ ΜΟΝΤΕΛΟ ${m.config.years} ΕΤΩΝ` : `${m.config.years}-YEAR FINANCIAL MODEL`;
   setText('metricPayback', m.simplePayback===null?(lang==='el'?'Πέρα από τον ορίζοντα':'Not reached'):number(m.simplePayback,1));
   setText('metricPaybackUnit',m.simplePayback===null?'':lang==='el'?'έτη':'years');
   setText('metricProfit',euro(m.totalProfit));
@@ -279,7 +288,12 @@ function locationChange() {
 function setCustomLocation() {
   $('city').value='custom';renderLocation();
 }
-function csvCell(value) { return `"${String(value??'').replaceAll('"','""')}"`; }
+function csvCell(value) {
+  const text = String(value ?? '');
+  // Protect spreadsheets against formula injection from non-numeric metadata.
+  const safe = typeof value === 'string' && /^[=+\-@\t\r]/.test(text) ? `\'${text}` : text;
+  return `"${safe.replaceAll('"', '""')}"`;
+}
 function exportCsv() {
   if (!result||!solar)return;
   const m=result;
