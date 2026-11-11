@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101d19">
+  <meta name="description" content="Calculate solar-panel payback with European Commission PVGIS production data, transparent electricity assumptions and a 25-year financial model. Built for Greece and beyond.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Helios — Solar investment intelligence">
+  <meta property="og:description" content="Where solar physics meets financial clarity. Explore your PV system's payback, energy and lifetime returns.">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/assets/styles.css">
+  <title>Helios — Solar investment intelligence</title>
+  <script type="module" src="/assets/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to calculator</a>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Main navigation">
+      <a class="brand" href="#overview" aria-label="Helios home">
+        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="8" fill="currentColor"/><circle cx="24" cy="24" r="17" stroke="currentColor" stroke-width="1.5" stroke-dasharray="1.5 5" stroke-linecap="round"/><path d="M24 1v8M24 39v8M1 24h8M39 24h8M8 8l6 6M34 34l6 6M8 40l6-6M34 14l6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+        <span class="brand-name">helios<span class="brand-dot">.</span><small>ENERGY INTELLIGENCE</small></span>
+      </a>
+      <div class="nav-caption" data-i18n="workspace">WORKSPACE</div>
+      <nav class="side-nav" aria-label="Sections">
+        <a href="#overview" class="active"><span class="nav-icon">◈</span><span data-i18n="navOverview">Overview</span><span class="nav-index">01</span></a>
+        <a href="#production"><span class="nav-icon">◱</span><span data-i18n="navProduction">Solar yield</span><span class="nav-index">02</span></a>
+        <a href="#returns"><span class="nav-icon">⌁</span><span data-i18n="navReturns">Financial returns</span><span class="nav-index">03</span></a>
+        <a href="#scenario"><span class="nav-icon">⤨</span><span data-i18n="navScenarios">Scenarios</span><span class="nav-index">04</span></a>
+        <a href="#methodology"><span class="nav-icon">▤</span><span data-i18n="navSources">Method & sources</span><span class="nav-index">05</span></a>
+      </nav>
+      <div class="side-bottom">
+        <div class="side-info"><div class="side-info-icon" aria-hidden="true">✳</div><span data-i18n="dataPromise">Built on verifiable solar data, not sales promises.</span></div>
+        <div class="side-version">HELIOS / V1.0 <span>© 2026</span></div>
+      </div>
+    </aside>
+    <main id="main" class="main">
+      <header class="topbar">
+        <div class="breadcrumbs"><span data-i18n="home">Dashboard</span><span class="crumb-slash">/</span><strong data-i18n="studio">Solar investment studio</strong></div>
+        <div class="top-actions">
+          <button class="text-button" id="languageToggle" type="button" aria-label="Switch language"><span class="lang-dot">●</span><span id="languageLabel">Ελληνικά</span></button>
+          <span class="top-divider" aria-hidden="true"></span>
+          <button class="text-button export-top" id="exportButton" type="button" disabled><span aria-hidden="true">↗</span><span data-i18n="export">Export analysis</span></button>
+          <span class="top-divider desktop-only" aria-hidden="true"></span>
+          <span class="status-chip" id="sourceBadge"><span class="status-indicator"></span><span id="sourceBadgeLabel" data-i18n="waiting">Awaiting solar data</span></span>
+        </div>
+      </header>
+
+      <div class="content">
+        <section class="hero" id="overview" aria-labelledby="heroTitle">
+          <div class="hero-text">
+            <div class="hero-eyebrow"><span class="eyebrow-line"></span><span data-i18n="eyebrow">THE SOLAR DECISION ENGINE</span><span class="eyebrow-year">2026 EDITION</span></div>
+            <h1 id="heroTitle" data-i18n="heroTitle">Make the sun<br><em>work for you.</em></h1>
+            <p class="hero-sub" data-i18n="heroSub">A clearer way to understand what solar can really save you. Independent yield data. Transparent assumptions. Long-term perspective.</p>
+            <div class="hero-actions"><a class="btn hero-cta" href="#config"><span data-i18n="configure">Configure your system</span><span aria-hidden="true">↗</span></a><span class="hero-proof"><span class="proof-star">✳</span><span data-i18n="officialData">Production model: European Commission PVGIS</span></span></div>
+          </div>
+          <div class="hero-visual" aria-hidden="true">
+            <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="orbit orbit-three"></div>
+            <div class="hero-sun"></div><div class="orbit-glint"></div>
+            <div class="hero-visual-top">SUNLIGHT IS AN ASSET <span>↗</span></div>
+            <div class="hero-visual-bottom"><span id="heroLocation">37.9838° N / 23.7275° E</span><span>01 / 25</span></div>
+          </div>
+        </section>
+
+        <section class="overview-head" aria-label="Current projection">
+          <div><div class="section-kicker"><span class="tiny-gold-star">✳</span><span data-i18n="projection">YOUR PROJECTED OUTCOME</span></div><h2 data-i18n="decisionAtGlance">The decision, at a glance.</h2></div>
+          <div class="project-caption"><span id="projectLocation">Athens, Greece</span><span class="project-separator">·</span><span id="projectSize">5.0 kWp</span></div>
+        </section>
+        <section class="metric-grid" aria-label="Key performance indicators">
+          <article class="metric-card metric-featured"><div class="metric-header"><span data-i18n="payback">Simple payback</span><span class="metric-symbol">↗</span></div><div class="metric-value"><span id="metricPayback">—</span><small id="metricPaybackUnit"></small></div><div class="metric-foot"><span data-i18n="paybackDesc">When cumulative cash flow turns positive</span></div></article>
+          <article class="metric-card"><div class="metric-header"><span data-i18n="netValue">25-year net value</span><span class="metric-symbol">◇</span></div><div class="metric-value" id="metricProfit">—</div><div class="metric-foot" data-i18n="profitDesc">After investment and operating costs</div></article>
+          <article class="metric-card"><div class="metric-header"><span data-i18n="firstYearBenefit">Year-one benefit</span><span class="metric-symbol">⌁</span></div><div class="metric-value" id="metricBenefit">—</div><div class="metric-foot" data-i18n="benefitDesc">Bill savings + modeled export income</div></article>
+          <article class="metric-card"><div class="metric-header"><span data-i18n="annualProduction">Annual solar yield</span><span class="metric-symbol">☼</span></div><div class="metric-value"><span id="metricGeneration">—</span><small id="metricKwh"></small></div><div class="metric-foot" data-i18n="generationDesc">PVGIS historical irradiance-based estimate</div></article>
+        </section>
+
+        <div class="dashboard-layout">
+          <div class="dashboard-main">
+            <section class="panel production-panel" id="production" aria-labelledby="productionTitle">
+              <div class="panel-top"><div><p class="panel-kicker" data-i18n="resourceAnalysis">SOLAR RESOURCE ANALYSIS</p><h2 id="productionTitle" data-i18n="productionTitle">A year in sunlight.</h2><p class="panel-sub" data-i18n="productionDesc">Expected generation by month, from the selected location and roof configuration.</p></div><div class="panel-top-indicator"><span class="mini-dot"></span><span id="datasetLabel">PVGIS 5.3</span></div></div>
+              <div class="chart-meta"><div><strong id="chartAnnual">—</strong><span data-i18n="kwhYear">kWh / year</span></div><div class="chart-meta-right"><span class="chart-key"></span><span data-i18n="solarGeneration">Solar generation</span></div></div>
+              <div id="productionChart" class="bar-chart" role="img" aria-label="Monthly estimated solar electricity production"><div class="chart-placeholder" data-i18n="loadingChart">Live solar production will appear here.</div></div>
+              <div class="panel-bottom"><span id="bestMonth" data-i18n="waitingModel">Waiting for PVGIS</span><span class="foot-citation"><a href="https://joint-research-centre.ec.europa.eu/photovoltaic-geographical-information-system-pvgis/using-pvgis-5_en" target="_blank" rel="noopener noreferrer">JRC PVGIS ↗</a></span></div>
+            </section>
+
+            <section class="panel financial-panel" id="returns" aria-labelledby="returnsTitle">
+              <div class="panel-top"><div><p class="panel-kicker" data-i18n="financialModel">25-YEAR FINANCIAL MODEL</p><h2 id="returnsTitle" data-i18n="returnsTitle">The long view.</h2><p class="panel-sub" data-i18n="returnsDesc">Cumulative cash flow after installation, upkeep and planned inverter replacement.</p></div></div>
+              <div class="returns-summary"><div class="returns-main-number"><span data-i18n="npv">Net present value</span><strong id="metricNpv">—</strong><span class="small-explainer" data-i18n="npvDesc">Future cash flows discounted to today's euros</span></div><div class="returns-aside-metric"><span data-i18n="discountPayback">Discounted payback</span><strong id="metricDiscPayback">—</strong></div></div>
+              <div id="cashChart" class="cash-chart"><div class="chart-placeholder" data-i18n="loadingCash">Your year-by-year projection will appear here.</div></div>
+              <div class="financial-chart-foot"><span><span class="line-legend"></span><span data-i18n="cumulativeCash">Cumulative net cash flow</span></span><span data-i18n="zeroLine">Dotted line = break-even</span></div>
+              <details class="cash-details"><summary><span data-i18n="showAnnual">View every year's cash flow</span><span class="details-arrow">↗</span></summary><div class="table-scroll"><table><thead><tr><th data-i18n="year">Year</th><th data-i18n="produced">Produced</th><th data-i18n="saved">Saved</th><th data-i18n="exported">Export €</th><th data-i18n="expenses">Costs</th><th data-i18n="netCash">Net cash</th><th data-i18n="cumulative">Total</th></tr></thead><tbody id="annualTable"></tbody></table></div></details>
+            </section>
+
+            <section class="panel scenario-panel" id="scenario" aria-labelledby="scenarioTitle">
+              <div class="panel-top"><div><p class="panel-kicker" data-i18n="sensitivity">SENSITIVITY, NOT CERTAINTY</p><h2 id="scenarioTitle" data-i18n="scenarioTitle">What if things change?</h2><p class="panel-sub" data-i18n="scenarioDesc">Stress-test solar production and retail electricity prices. These are scenarios, not probabilities.</p></div></div>
+              <div id="scenarios" class="scenario-grid"><div class="chart-placeholder" data-i18n="scenariosPending">Results appear after a PVGIS calculation.</div></div>
+              <div class="panel-bottom"><span data-i18n="scenarioFoot">Cautious: yield −10%, price −20% · Upside: yield +10%, price +20%</span></div>
+            </section>
+
+            <section class="panel sizing-panel" id="sizing" aria-labelledby="sizingTitle">
+              <div class="panel-top"><div><p class="panel-kicker" data-i18n="sizingKicker">SYSTEM SIZING EXPLORER</p><h2 id="sizingTitle" data-i18n="sizingTitle">Does bigger mean better?</h2><p class="panel-sub" data-i18n="sizingDesc">Compare approximate returns for different system sizes using linearly scaled PVGIS production.</p></div></div>
+              <div class="table-scroll"><table><thead><tr><th data-i18n="size">System size</th><th data-i18n="outputYear">Annual kWh</th><th data-i18n="invest">Upfront cost</th><th data-i18n="payback">Payback</th><th data-i18n="netValue">25-year net value</th></tr></thead><tbody id="sizingTable"><tr><td colspan="5" class="empty-cell" data-i18n="sizingPending">Run a model to compare capacities.</td></tr></tbody></table></div>
+              <p class="fine-print" data-i18n="sizingWarning">Indicative only: inverter sizing, roof space, connection limits, tariffs and installation quotes vary by system.</p>
+            </section>
+          </div>
+
+          <aside class="dashboard-aside" id="config" aria-label="System assumptions">
+            <section class="panel input-panel">
+              <div class="input-head"><div><p class="panel-kicker" data-i18n="modelInputs">YOUR MODEL INPUTS</p><h2 data-i18n="tailor">Make it yours.</h2></div><button id="resetButton" type="button" class="reset-button"><span aria-hidden="true">↺</span><span data-i18n="reset">Reset</span></button></div>
+              <form id="modelForm" autocomplete="off" novalidate>
+                <div class="form-section"><div class="form-section-title"><span class="form-number">01</span><span data-i18n="locationTitle">Location & roof</span></div>
+                  <label class="input-label" for="city" data-i18n="locationLabel">Location</label>
+                  <select id="city" name="city">
+                    <option value="athens">Athens / Αθήνα</option><option value="thessaloniki">Thessaloniki / Θεσσαλονίκη</option><option value="patras">Patras / Πάτρα</option><option value="heraklion">Heraklion / Ηράκλειο</option><option value="larissa">Larissa / Λάρισα</option><option value="ioannina">Ioannina / Ιωάννινα</option><option value="chania">Chania / Χανιά</option><option value="kalamata">Kalamata / Καλαμάτα</option><option value="rhodes">Rhodes / Ρόδος</option><option value="custom">Custom coordinates / Συντεταγμένες</option>
+                  </select>
+                  <div class="two-inputs"><div><label class="input-label" for="lat" data-i18n="latitude">Latitude</label><input id="lat" type="number" name="lat" min="-90" max="90" step="any" required value="37.9838"></div><div><label class="input-label" for="lon" data-i18n="longitude">Longitude</label><input id="lon" type="number" name="lon" min="-180" max="180" step="any" required value="23.7275"></div></div>
+                  <button id="geolocate" class="location-action" type="button"><span aria-hidden="true">⌾</span><span data-i18n="useMyLocation">Use my device's location</span></button>
+                  <div class="two-inputs"><div><label class="input-label" for="capacity" data-i18n="capacity">PV capacity (kWp)</label><input id="capacity" type="number" name="capacity" min="0.1" max="1000" step="0.1" value="5" required></div><div><label class="input-label" for="loss" data-i18n="systemLoss">System losses (%)</label><input id="loss" type="number" name="loss" min="0" max="45" step="1" value="14" required></div></div>
+                  <div class="two-inputs"><div><label class="input-label" for="angle" data-i18n="tilt">Roof tilt (°)</label><input id="angle" type="number" name="angle" min="0" max="90" step="1" value="30" required></div><div><label class="input-label" for="aspect" data-i18n="orientation">Azimuth (°)</label><select id="aspect" name="aspect"><option value="0">South · 0°</option><option value="-90">East · −90°</option><option value="90">West · +90°</option><option value="-45">SE · −45°</option><option value="45">SW · +45°</option><option value="180">North · 180°</option></select></div></div>
+                </div>
+                <div class="form-section"><div class="form-section-title"><span class="form-number">02</span><span data-i18n="electricityTitle">Electricity & costs</span></div>
+                  <div class="two-inputs"><div><label class="input-label" for="annualDemand" data-i18n="annualDemand">Annual use (kWh)</label><input id="annualDemand" type="number" name="annualDemand" min="0" step="100" value="6000" required></div><div><label class="input-label" for="selfUsePct" data-i18n="selfUse">Direct self-use (%)</label><input id="selfUsePct" type="number" name="selfUsePct" min="0" max="100" step="1" value="55" required></div></div>
+                  <div class="input-tip"><span aria-hidden="true">ⓘ</span><span data-i18n="selfUseTip">Direct self-use is an assumption, not an hourly load simulation.</span></div>
+                  <div class="two-inputs"><div><label class="input-label" for="buyPrice" data-i18n="retailRate">Avoidable rate (€/kWh)</label><input id="buyPrice" type="number" name="buyPrice" min="0" max="10" step="0.01" value="0.24" required></div><div><label class="input-label" for="exportPrice" data-i18n="feedIn">Export credit (€/kWh)</label><input id="exportPrice" type="number" name="exportPrice" min="0" max="10" step="0.01" value="0.06" required></div></div>
+                  <div class="input-tip"><span aria-hidden="true">ⓘ</span><span data-i18n="priceTip">€0.24 is a 2026 Greece household-price benchmark, not your marginal tariff. €0.06 export credit is illustrative. Replace both with your contract.</span></div>
+                  <div class="two-inputs"><div><label class="input-label" for="costPerKw" data-i18n="installCost">Installed € / kWp</label><input id="costPerKw" type="number" name="costPerKw" min="1" step="50" value="1450" required></div><div><label class="input-label" for="grant" data-i18n="subsidy">Confirmed grant (€)</label><input id="grant" type="number" name="grant" min="0" step="100" value="0" required></div></div>
+                  <div class="installed-estimate"><span data-i18n="totalInstalled">Illustrative installed cost</span><strong id="estimatedCost">€7,250</strong></div>
+                </div>
+                <details class="advanced-settings"><summary><span data-i18n="advanced">Advanced financial assumptions</span><span aria-hidden="true">＋</span></summary>
+                  <div class="two-inputs"><div><label class="input-label" for="opexPct" data-i18n="maintenance">Annual O&M (% capex)</label><input id="opexPct" type="number" min="0" max="25" step="0.1" name="opexPct" value="1"></div><div><label class="input-label" for="degradationPct" data-i18n="degradation">Annual yield loss (%)</label><input id="degradationPct" type="number" min="0" max="10" step="0.1" name="degradationPct" value="0.5"></div></div>
+                  <div class="two-inputs"><div><label class="input-label" for="priceGrowthPct" data-i18n="priceGrowth">Retail rate change (%/yr)</label><input id="priceGrowthPct" type="number" min="-20" max="30" step="0.5" name="priceGrowthPct" value="1.5"></div><div><label class="input-label" for="exportGrowthPct" data-i18n="exportGrowth">Export rate change (%/yr)</label><input id="exportGrowthPct" type="number" min="-20" max="30" step="0.5" name="exportGrowthPct" value="0"></div></div>
+                  <div class="two-inputs"><div><label class="input-label" for="discountPct" data-i18n="discount">Discount rate (%)</label><input id="discountPct" type="number" min="0" max="30" step="0.5" name="discountPct" value="4"></div><div><label class="input-label" for="years" data-i18n="horizon">Analysis years</label><input id="years" type="number" min="1" max="40" step="1" name="years" value="25"></div></div>
+                  <div class="two-inputs"><div><label class="input-label" for="inverterYear" data-i18n="replacementYear">Inverter replace year</label><input id="inverterYear" type="number" min="0" max="50" step="1" name="inverterYear" value="12"></div><div><label class="input-label" for="inverterCost" data-i18n="replacementCost">Replacement cost (€)</label><input id="inverterCost" type="number" min="0" step="100" name="inverterCost" value="1000"></div></div>
+                </details>
+                <button type="submit" class="btn recalculate" id="runButton"><span data-i18n="calculate">Update solar analysis</span><span aria-hidden="true">↗</span></button>
+                <p id="formStatus" class="form-status" role="status" aria-live="polite"></p>
+              </form>
+            </section>
+            <section class="dark-note"><div class="dark-note-glow" aria-hidden="true">✳</div><p class="note-label" data-i18n="whySelfConsumption">WHY SELF-CONSUMPTION MATTERS</p><h3 data-i18n="valueMore">Not every solar kWh has the same value.</h3><div class="energy-flow"><div><span data-i18n="usedAtHome">Used on-site</span><strong id="directEnergy">—</strong></div><div><span data-i18n="sentToGrid">Sent to grid</span><strong id="exportEnergy">—</strong></div></div><p data-i18n="flowDesc">Solar energy used immediately avoids purchases; exported power earns only your assumed export credit.</p></section>
+          </aside>
+        </div>
+
+        <section class="methodology" id="methodology" aria-labelledby="methodTitle"><div class="method-heading"><p class="panel-kicker" data-i18n="trustLayer">THE TRUST LAYER</p><h2 id="methodTitle" data-i18n="methodTitle">Know where every number comes from.</h2><p data-i18n="methodIntro">Solar production is supplied by an independent scientific model. Financial results are a transparent simulation of inputs you can change—not a quote or a guaranteed return.</p></div><div class="method-grid">
+          <article><div class="method-icon">01 /</div><h3 data-i18n="sourceSolarTitle">Solar resource</h3><p data-i18n="sourceSolarDesc">European Commission JRC PVGIS 5.3, using historical satellite and reanalysis weather data. Actual roof shading and equipment performance may differ.</p><a href="https://joint-research-centre.ec.europa.eu/photovoltaic-geographical-information-system-pvgis/using-pvgis-5/api-non-interactive-service_en" target="_blank" rel="noopener noreferrer" data-i18n="sourceDoc">Official documentation ↗</a></article>
+          <article><div class="method-icon">02 /</div><h3 data-i18n="sourcePricesTitle">Electricity benchmarks</h3><p data-i18n="sourcePricesDesc">Eurostat's household electricity survey is context, not a substitute for your avoidable per-kWh tariff. Price, credits and installation costs stay user-editable.</p><a href="https://ec.europa.eu/eurostat/databrowser/view/nrg_pc_204/default/table?lang=en" target="_blank" rel="noopener noreferrer" data-i18n="viewData">Explore Eurostat data ↗</a></article>
+          <article><div class="method-icon">03 /</div><h3 data-i18n="sourceRulesTitle">Greek settlement rules</h3><p data-i18n="sourceRulesDesc">The model values self-used and exported energy separately; it does not promise net metering, fixed export rates or unconfirmed subsidies.</p><a href="https://ypen.gov.gr/net-billing-pio-efkoli-i-paragogi-kai-katanalosi-ilektrikis-energeias-gia-idia-chrisi-apo-noikokyria-kai-epicheiriseis/" target="_blank" rel="noopener noreferrer" data-i18n="readMinistry">Greek ministry guidance ↗</a></article>
+        </div><p class="method-disclaimer" data-i18n="disclaimer">Method limits: Monthly energy balance assumes flat monthly demand and an editable direct-consumption percentage. It does not perform hourly load matching, model batteries, debt, taxation, fixed utility fees, dynamic export pricing, roof obstructions or grid constraints. Obtain a site survey and written offers before investing.</p></section>
+        <footer class="footer"><span class="footer-wordmark">helios<span>.</span></span><span data-i18n="footerTagline">Make informed energy decisions.</span><a href="#overview" data-i18n="backTop">Back to top ↑</a></footer>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
