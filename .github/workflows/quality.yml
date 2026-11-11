@@ -1,0 +1,24 @@
+name: Code and data quality
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm test
+      - run: npm run build
+      - name: Verify output
+        run: |
+          test -f dist/index.html
+          test -f dist/styles.css
+          test -f dist/src/engine.js
+          test -f dist/_headers
