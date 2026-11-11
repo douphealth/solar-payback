@@ -10,17 +10,17 @@ const locations = {
 };
 const EL = {
   navCalculator:'Υπολογιστής',navMethod:'Μεθοδολογία',navSources:'Πηγές δεδομένων',download:'Εξαγωγή CSV',
-  heroKicker:'Η ΗΛΙΑΚΗ ΕΠΕΝΔΥΣΗ ΣΟΥ, ΧΩΡΙΣ ΑΣΑΦΕΙΕΣ',
-  heroTitle:'Δες καθαρά <em>τι αποδίδει ο ήλιος.</em>',
-  heroText:'Υπολόγισε την παραγωγή των φωτοβολταϊκών, πότε αποσβένεται η επένδυση και πώς κάθε παραδοχή μεταβάλλει την απόδοση.',
+  heroKicker:'ΕΞΥΠΝΗ ΑΝΑΛΥΣΗ ΦΩΤΟΒΟΛΤΑΪΚΩΝ',
+  heroTitle:'Κάθε κιλοβατώρα μετρά.<br><em>Κάθε ευρώ εξηγείται.</em>',
+  heroText:'Δες πόσο μπορεί να παράγει η εγκατάσταση και πόσο αξίζει η ενέργεια — με πραγματικά ηλιακά δεδομένα και οικονομικές παραδοχές που ελέγχεις.',
   trustJrc:'Ηλιακά δεδομένα Ευρωπαϊκής Επιτροπής',trustMath:'Διαφανές οικονομικό μοντέλο',trustPrivacy:'Χωρίς εγγραφή',
-  workbench:'01 / ΤΟ ΕΡΓΑΛΕΙΟ',calculatorTitle:'Δημιούργησε το σενάριό σου',calculatorSubtitle:'Οι παραδοχές αριστερά. Η οικονομική εικόνα δεξιά.',
-  yourProject:'ΤΟ ΕΡΓΟ ΣΟΥ',projectSettings:'Στοιχεία εγκατάστασης',locationTitle:'Τοποθεσία',findPlace:'Βρες την πόλη σου',searchPlaceholder:'Αναζήτηση πόλης ή περιοχής',
+  workbench:'01 / ΤΟ ΕΡΓΑΛΕΙΟ ΣΟΥ',calculatorTitle:'Η επένδυση σε πρώτο πλάνο.',calculatorSubtitle:'Προσαρμόζεις στοιχεία. Ελέγχεις αριθμούς. Καταλαβαίνεις τη διαφορά.',
+  yourProject:'ΤΟ ΕΡΓΟ ΣΟΥ',projectSettings:'Η δική σου εγκατάσταση.',locationTitle:'Τοποθεσία',findPlace:'Βρες την πόλη σου',searchPlaceholder:'Αναζήτηση πόλης ή περιοχής',
   latitude:'Γεωγραφικό πλάτος',longitude:'Γεωγραφικό μήκος',quickLocations:'Ενδεικτικές πόλεις',
   systemTitle:'Φωτοβολταϊκή εγκατάσταση',systemPower:'Ισχύς συστήματος (kWp)',systemLoss:'Απώλειες συστήματος (%)',tilt:'Κλίση πάνελ (°)',orientation:'Προσανατολισμός (°)',mounting:'Τύπος στήριξης',
   householdTitle:'Η κατανάλωσή σου',annualUse:'Ετήσια κατανάλωση (kWh)',loadProfile:'Εποχική κατανάλωση',selfUse:'Παραγωγή που καταναλώνεις επί τόπου',
   selfUseHint:'Εκτίμηση ταυτόχρονης χρήσης, με ανώτατο όριο τη μηνιαία κατανάλωση. Δεν είναι μετρημένη χρήση.',
-  economicsTitle:'Οικονομικά στοιχεία',currency:'Νόμισμα (χωρίς αυτόματη μετατροπή)',installationCost:'Κόστος εγκατάστασης',grant:'Επιδότηση',importRate:'Τιμή αγοράς / kWh',exportRate:'Αποζημίωση έγχυσης / kWh',
+  economicsTitle:'Οικονομικά στοιχεία',currency:'Νόμισμα (χωρίς αυτόματη μετατροπή)',installationCost:'Κόστος εγκατάστασης',grant:'Επιδότηση',importRate:'Αποφεύξιμο κόστος ρεύματος / kWh',exportRate:'Αποζημίωση έγχυσης / kWh',
   priceDisclaimer:'Τα αρχικά ποσά και οι τιμές ρεύματος είναι ενδεικτικά, όχι τρέχουσες προσφορές. Βάλε τις πραγματικές τιμές του συμβολαίου σου.',
   advanced:'Προχωρημένες παραδοχές',maintenance:'Ετήσια συντήρηση',insurance:'Ετήσια ασφάλιση',replacementYear:'Αλλαγή inverter (έτος)',replacementCost:'Κόστος αλλαγής',
   degradation:'Ετήσια υποβάθμιση πάνελ %',lifetime:'Διάρκεια επένδυσης (έτη)',priceIncrease:'Μεταβολή τιμής αγοράς %/έτος',exportIncrease:'Μεταβολή αποζημίωσης %/έτος',
@@ -78,6 +78,13 @@ const EN_DYNAMIC={years:'years',notWithin:'Not within',notRecovered:'No payback 
   notedEmission:'Illustrative lifecycle grid-emissions displacement is ',notAQuote:'It is not a verified footprint; it assumes your fixed grid-emissions factor.',
   sample:'Example scenario',monthlyLabels:MONTHS
 };
+
+const EXTRAS = {
+ en:{printReport:'Print report',settingsHelp:'Start with your roof. Refine consumption and costs as needed.',resultsSubtitle:'PVGIS-backed generation. Editable, transparent economics.',tabSystem:'System',tabUsage:'Usage',tabFinance:'Costs',decisionBrief:'INVESTMENT DECISION BRIEF',decisionEyebrow:'WHAT THE MODEL SAYS',energyIndependence:'ENERGY SELF-SUFFICIENCY',lifetimeReturn:'LIFETIME NET PROFIT',specificOutput:'YIELD PER kWp',opportunityEyebrow:'03 / THE OPPORTUNITY LAB',opportunityTitle:'What could improve the numbers?',opportunityIntro:'One-change-at-a-time sensitivities, calculated without another solar-data request.',leverUse:'Use more power onsite',leverCost:'Reduce installation cost',leverPrice:'Test a higher grid saving',applyLever:'Apply assumption',opportunityNote:'Hypothetical changes, not offers, forecasts, or statistical probabilities.',useNote:'10 percentage points more self-use',costNote:'10% lower installation price',priceNote:'10% higher avoidable grid price',npvChange:'NPV change',noUplift:'No additional modeled benefit',decisionPositive:'Promising modeled economics.',decisionCautious:'Revisit the economics.',decisionPositiveDesc:'The baseline has positive NPV and reaches sustained simple payback in {years}. This is an assumption-based planning result, not an investment recommendation.',decisionCautiousDesc:'The model does not show positive NPV with sustained payback under these assumptions. Check actual supplier quotes, consumption and tariff terms.',decisionWaiting:'Awaiting verified solar data',decisionWaitingDesc:'We never fill the forecast with invented irradiation data.',annualOffset:'Household demand offset',specYield:'Specific yield',billAvoidable:'Avoidable grid cost / kWh',monthlySelf:'Used onsite',monthlyExport:'Exported',saveFinance:'Financial inputs updated using the same verified PVGIS production.',unknown:'Unavailable'},
+ el:{printReport:'Εκτύπωση αναφοράς',settingsHelp:'Ξεκίνα από τη στέγη σου. Προσάρμοσε κατανάλωση και οικονομικά όταν θέλεις.',resultsSubtitle:'Παραγωγή PVGIS. Οικονομικές παραδοχές που ελέγχεις.',tabSystem:'Σύστημα',tabUsage:'Κατανάλωση',tabFinance:'Κόστος',decisionBrief:'ΣΥΝΟΨΗ ΕΠΕΝΔΥΤΙΚΗΣ ΕΚΤΙΜΗΣΗΣ',decisionEyebrow:'ΤΙ ΔΕΙΧΝΕΙ ΤΟ ΜΟΝΤΕΛΟ',energyIndependence:'ΚΑΛΥΨΗ ΟΙΚΙΑΚΗΣ ΖΗΤΗΣΗΣ',lifetimeReturn:'ΚΑΘΑΡΟ ΚΕΡΔΟΣ ΔΙΑΡΚΕΙΑΣ',specificOutput:'ΑΠΟΔΟΣΗ ΑΝΑ kWp',opportunityEyebrow:'03 / ΔΟΚΙΜΕΣ ΣΕΝΑΡΙΩΝ',opportunityTitle:'Τι μπορεί να βελτιώσει την απόδοση;',opportunityIntro:'Σύγκρινε μία παραδοχή κάθε φορά, χωρίς νέα λήψη ηλιακών δεδομένων.',leverUse:'Περισσότερη ιδιοκατανάλωση',leverCost:'Χαμηλότερο κόστος',leverPrice:'Υψηλότερη αξία εξοικονόμησης',applyLever:'Εφαρμογή παραδοχής',opportunityNote:'Υποθετικές μεταβολές, όχι προσφορές, προβλέψεις ή στατιστικές πιθανότητες.',useNote:'Ιδιοκατανάλωση +10 μονάδες',costNote:'Κόστος εγκατάστασης −10%',priceNote:'Αποφυγή τιμής αγοράς +10%',npvChange:'Μεταβολή ΚΠΑ',noUplift:'Χωρίς πρόσθετο όφελος',decisionPositive:'Θετική οικονομική εκτίμηση.',decisionCautious:'Έλεγξε ξανά τις παραδοχές.',decisionPositiveDesc:'Το βασικό σενάριο έχει θετική ΚΠΑ και διατηρήσιμη απόσβεση σε {years}. Ενδεικτικός υπολογισμός, όχι επενδυτική σύσταση.',decisionCautiousDesc:'Το μοντέλο δεν δείχνει θετική ΚΠΑ με διατηρήσιμη απόσβεση για αυτές τις παραδοχές. Έλεγξε πραγματικές προσφορές και όρους παρόχου.',decisionWaiting:'Αναμονή πραγματικών ηλιακών δεδομένων',decisionWaitingDesc:'Δεν εμφανίζουμε κατασκευασμένα δεδομένα ηλιακής ακτινοβολίας.',annualOffset:'Κάλυψη ετήσιας ζήτησης',specYield:'Ειδική απόδοση',billAvoidable:'Αποφεύξιμο κόστος ρεύματος / kWh',monthlySelf:'Επιτόπια χρήση',monthlyExport:'Έγχυση στο δίκτυο',saveFinance:'Οι οικονομικές παράμετροι ενημερώθηκαν χωρίς νέα λήψη PVGIS.',unknown:'Μη διαθέσιμο'}
+};
+const extra = key => EXTRAS[language]?.[key] ?? EXTRAS.en[key] ?? key;
+
 let language = (navigator.language || '').toLowerCase().startsWith('el') ? 'el' : 'en';
 let result = null, dataset = null, dataSignature = null, requestCounter = 0, activeController = null;
 let locationName = DEFAULTS.location;
@@ -90,7 +97,7 @@ function payback(v, life){return v===null ? `${t('notWithin')} ${life} ${t('year
 
 function applyTranslations(){
  document.documentElement.lang=language;
- document.querySelectorAll('[data-i18n]').forEach(el=>{const translation=language==='el'?EL[el.dataset.i18n]:null;
+ document.querySelectorAll('[data-i18n]').forEach(el=>{const translation=language==='el'?EL[el.dataset.i18n]:undefined;
   if (translation!==undefined) el.textContent=translation; else if(el.dataset.originalText!==undefined) el.textContent=el.dataset.originalText;
  });
  document.querySelectorAll('[data-i18n-html]').forEach(el=>{if(language==='el')el.innerHTML=EL[el.dataset.i18nHtml];else el.innerHTML=el.dataset.originalHtml;});
@@ -100,6 +107,8 @@ function applyTranslations(){
   aspect:{'0':['South · 0°','Νότος · 0°'],'-45':['South-east · −45°','Νοτιοανατολικά · −45°'],'45':['South-west · +45°','Νοτιοδυτικά · +45°'],'-90':['East · −90°','Ανατολή · −90°'],'90':['West · +90°','Δύση · +90°'],'180':['North · 180°','Βορράς · 180°']}};
  for(const [id,values] of Object.entries(selectLabels)) for(const opt of form.elements[id].options){const labels=values[opt.value];if(labels)opt.textContent=labels[language==='el'?1:0];}
  $('languageToggle').textContent=language==='el'?'EN':'ΕΛ';
+ document.querySelectorAll('[data-extra]').forEach(el=>{el.textContent=extra(el.dataset.extra)});
+ const gridLabel=form.querySelector('label[for="importRate"]');if(gridLabel)gridLabel.textContent=extra('billAvoidable');
  $('selfUseOutput').textContent=`${form.elements.selfUsePct.value}%`;
  if(result)renderForecast(result);else if(!dataset)resetVisuals();
 }
@@ -115,10 +124,12 @@ function setStatus(message,state='pending'){$('statusMessage').textContent=messa
 function setFormError(message){$('formError').hidden=!message;$('formError').textContent=message||''}
 function setBusy(busy){$('calculateBtn').disabled=busy;$('calculateBtn').setAttribute('aria-busy',String(busy));
  $('calculateBtnText').textContent=busy?(language==='el'?'Υπολογισμός…':'Calculating…'):(language==='el'?EL.calculate:'Calculate solar payback');}
-function resetVisuals(){for(const id of ['independenceValue','netReturnValue','specificYieldValue']) $(id).textContent='—';$('decisionTitle').textContent=language==='el'?'Γνώρισε την επένδυση πριν προχωρήσεις.':'Know your return before you invest.';$('decisionCopy').textContent=language==='el'?'Υπολόγισε την παραγωγή από πραγματικά δεδομένα PVGIS.':'Run an EU PVGIS assessment to see your projected return.';for(const id of ['paybackValue','savingsValue','productionValue','npvValue','selfUsedValue','exportedValue','usageValue','ringPercent','upfrontValue','avoidedValue','exportValue','discountedPaybackValue','lcoeValue','lowPayback','basePayback','highPayback']) $(id).textContent='—';
+function resetVisuals(){for(const id of ['paybackValue','savingsValue','productionValue','npvValue','selfUsedValue','exportedValue','usageValue','ringPercent','upfrontValue','avoidedValue','exportValue','discountedPaybackValue','lcoeValue','lowPayback','basePayback','highPayback']) $(id).textContent='—';
  $('monthlyChart').replaceChildren(createPlaceholder());$('cashChart').replaceChildren(createPlaceholder());$('energyRing').style.background='conic-gradient(#36545b 0%,#36545b 100%)';
  $('cashflowBody').replaceChildren();$('insightsList').replaceChildren(createPlaceholder(true));$('exportBtn').disabled=true;
  $('provenanceText').textContent=language==='el'?EL.provenancePending:'No PVGIS calculation has completed yet. Example prices are assumptions, not live tariff data.';
+ for(const id of ['independenceValue','netReturnValue','specificYieldValue','leverUseValue','leverCostValue','leverPriceValue','leverUseNote','leverCostNote','leverPriceNote']) $(id).textContent='—';
+ $('decisionTitle').textContent=extra('decisionWaiting');$('decisionCopy').textContent=extra('decisionWaitingDesc');document.querySelectorAll('[data-apply]').forEach(b=>b.disabled=true);
 }
 function createPlaceholder(insights=false){const el=document.createElement('p');el.className='chart-placeholder';el.textContent=language==='el'?(insights?EL.insightsPending:EL.chartPending):(insights?'Complete a calculation to see the key assumptions that shape the result.':'Verified production data will appear here.');return el}
 function clearSolar(){requestCounter++;if(activeController)activeController.abort();activeController=null;dataset=null;dataSignature=null;result=null;
@@ -126,12 +137,19 @@ function clearSolar(){requestCounter++;if(activeController)activeController.abor
 function updateFromFinances(){if(!dataset)return;try{const input=serialize();if(solarSignature(input)!==dataSignature){clearSolar();return}
  result=calculateForecast(dataset.monthlyKwh,input);setFormError('');renderForecast(result);setStatus(t('changeFinance'),'verified');saveSettings();
  }catch(e){setFormError(t('inputError')+e.message);}}
-function renderMonthChart(forecast){const root=$('monthlyChart');root.replaceChildren();const chart=document.createElement('div');chart.className='monthly-bars';
- const max=Math.max(1,...forecast.months.map(m=>m.generation)); const names=t('monthlyLabels');
+function renderMonthChart(forecast){
+ const root=$('monthlyChart');root.replaceChildren();const chart=document.createElement('div');chart.className='monthly-bars';
+ const max=Math.max(1,...forecast.months.map(m=>m.generation));const names=t('monthlyLabels');
  forecast.months.forEach((m,i)=>{const col=document.createElement('div');col.className='month-col';
-  const wrap=document.createElement('div');wrap.className='month-bar-wrap';const bar=document.createElement('div');bar.className='month-bar';bar.style.height=`${Math.max(1,m.generation/max*92)}%`;bar.title=`${names[i]}: ${number(m.generation)} kWh`;wrap.append(bar);
-  const label=document.createElement('span');label.className='month-label';label.textContent=names[i];col.append(wrap,label);chart.append(col);
- });root.append(chart);root.setAttribute('aria-label',forecast.months.map((m,i)=>`${names[i]} ${number(m.generation)} kWh`).join(', '));}
+  const wrap=document.createElement('div');wrap.className='month-bar-wrap';const bar=document.createElement('div');bar.className='month-bar';
+  bar.style.height=`${Math.max(1,m.generation/max*92)}%`;
+  const onsite=document.createElement('span');onsite.className='month-self';onsite.style.height=`${m.generation>0?100*m.selfUsed/m.generation:0}%`;
+  const exported=document.createElement('span');exported.className='month-export';exported.style.height=`${m.generation>0?100*m.exported/m.generation:0}%`;
+  bar.append(exported,onsite);
+  bar.title=`${names[i]}: ${number(m.generation)} kWh · ${extra('monthlySelf')}: ${number(m.selfUsed)} kWh · ${extra('monthlyExport')}: ${number(m.exported)} kWh`;
+  wrap.append(bar);const label=document.createElement('span');label.className='month-label';label.textContent=names[i];col.append(wrap,label);chart.append(col);
+ });root.append(chart);
+ root.setAttribute('aria-label',forecast.months.map((m,i)=>`${names[i]} ${number(m.generation)} kWh`).join(', '));}
 function renderCashChart(forecast){const wrap=$('cashChart');wrap.replaceChildren();const svgNS='http://www.w3.org/2000/svg';const svg=document.createElementNS(svgNS,'svg');svg.setAttribute('viewBox','0 0 560 220');svg.setAttribute('role','img');svg.setAttribute('aria-label',language==='el'?'Γράφημα σωρευτικών ταμειακών ροών':'Cumulative cash-flow line chart');
  const width=560,height=220,left=55,right=14,top=19,bottom=25;
  const values=[-forecast.upfront,...forecast.years.map(y=>y.cumulative)];let min=Math.min(0,...values),max=Math.max(0,...values);if(min===max){min-=1;max+=1}const padding=(max-min)*.13;min-=padding;max+=padding;
@@ -140,7 +158,7 @@ function renderCashChart(forecast){const wrap=$('cashChart');wrap.replaceChildre
  for(let i=0;i<4;i++){const value=min+(max-min)*i/3;node('line',{x1:left,y1:y(value),x2:width-right,y2:y(value),class:'gridline'});const label=node('text',{x:left-8,y:y(value)+4,'text-anchor':'end'});label.textContent=number(value/1000,1)+'k';}
  node('line',{x1:left,y1:y(0),x2:width-right,y2:y(0),class:'baseline'});
  const points=values.map((v,i)=>`${x(i)},${y(v)}`).join(' ');
- const defs=node('defs',{});const gradient=node('linearGradient',{id:'areaFill',x1:'0',y1:'0',x2:'0',y2:'1'},defs);node('stop',{offset:'0%','stop-color':'#dbac75','stop-opacity':'.3'},gradient);node('stop',{offset:'100%','stop-color':'#dbac75','stop-opacity':'0'},gradient);
+ const defs=node('defs',{});const gradient=node('linearGradient',{id:'areaFill',x1:'0',y1:'0',x2:'0',y2:'1'},defs);node('stop',{offset:'0%','stop-color':'#44977a','stop-opacity':'.3'},gradient);node('stop',{offset:'100%','stop-color':'#44977a','stop-opacity':'0'},gradient);
  node('polygon',{points:`${x(0)},${y(min)} ${points} ${x(values.length-1)},${y(min)}`,fill:'url(#areaFill)'});
  node('polyline',{points,class:'line'});
  for(let i=0;i<values.length;i++) if(i===0||i===values.length-1||i%5===0||i===Math.ceil(forecast.paybackYears??-1)){
@@ -156,15 +174,40 @@ function renderInsights(forecast){const list=$('insightsList');list.replaceChild
 function renderTable(forecast){const body=$('cashflowBody');body.replaceChildren();for(const yr of forecast.years){const tr=document.createElement('tr');
  const values=[yr.year,number(yr.generation),number(yr.selfUsed),number(yr.exported),money(yr.avoidedPurchases),money(yr.exportRevenue),money(yr.cashflow),money(yr.cumulative)];
  for(const [i,value] of values.entries()){const cell=document.createElement(i===0?'th':'td');if(i===0)cell.scope='row';cell.textContent=String(value);tr.append(cell)}body.append(tr);}}
-function renderForecast(forecast){
- const independence=forecast.inputs.annualUsage>0?100*forecast.annualSelfUsed/forecast.inputs.annualUsage:0;
- $('independenceValue').textContent=forecast.inputs.annualUsage>0?`${number(independence,1)}%`:'N/A';
+function setConfigTab(key,focus=false){
+ for(const pane of document.querySelectorAll('.config-pane')){const active=pane.id==='pane-'+key;pane.hidden=!active;pane.classList.toggle('is-active',active);}
+ for(const tab of document.querySelectorAll('[data-config-tab]')){const active=tab.dataset.configTab===key;tab.classList.toggle('is-active',active);tab.setAttribute('aria-selected',String(active));tab.tabIndex=active?0:-1;if(active&&focus)tab.focus()}
+ const number={'system':'01','usage':'02','finance':'03'}[key]||'01';
+ const count=document.querySelector('.panel-count');if(count)count.innerHTML=number+'<span>/03</span>';
+}
+function calculateLevers(forecast){
+ const base=forecast.inputs;
+ const nextUse=Math.min(100,base.selfUsePct+10);
+ const nextCost=Math.max(base.grant,Math.round(base.systemCost*.9*100)/100);
+ const nextPrice=+(base.importRate*1.1).toFixed(4);
+ const variants=[{key:'use',input:{...base,selfUsePct:nextUse},field:'selfUsePct',value:nextUse,changed:nextUse>base.selfUsePct},
+  {key:'cost',input:{...base,systemCost:nextCost},field:'systemCost',value:nextCost,changed:nextCost<base.systemCost},
+  {key:'price',input:{...base,importRate:nextPrice},field:'importRate',value:nextPrice,changed:nextPrice>base.importRate}];
+ for(const v of variants){let delta=0;
+  if(v.changed){const next=calculateForecast(dataset.monthlyKwh,v.input);delta=next.npv-forecast.npv;}
+  const good=v.changed&&delta>0.001;
+  const value=$('lever'+v.key[0].toUpperCase()+v.key.slice(1)+'Value');
+  value.textContent=good?'+'+money(delta):extra('noUplift');
+  $('lever'+v.key[0].toUpperCase()+v.key.slice(1)+'Note').textContent=extra(v.key==='use'?'useNote':v.key==='cost'?'costNote':'priceNote');
+  const btn=document.querySelector(`[data-apply="${v.key}"]`);btn.disabled=!good;btn.dataset.field=v.field;btn.dataset.value=String(v.value);
+ }
+}
+function renderDecision(forecast){
+ const selfSufficiency=forecast.inputs.annualUsage>0?100*forecast.annualSelfUsed/forecast.inputs.annualUsage:null;
+ $('independenceValue').textContent=selfSufficiency===null?'N/A':`${number(selfSufficiency,1)}%`;
  $('netReturnValue').textContent=money(forecast.lifetimeNetProfit);
- $('specificYieldValue').textContent=`${number(forecast.annualProduction/forecast.inputs.peakKw)} kWh/kWp`;
+ $('specificYieldValue').textContent=`${number(forecast.annualProduction/forecast.inputs.peakKw)} kWh`;
  const favorable=forecast.npv>0&&forecast.paybackYears!==null;
- $('decisionTitle').textContent=language==='el'?(favorable?'Θετική εκτιμώμενη καθαρή παρούσα αξία.':'Έλεγξε προσεκτικά τα οικονομικά στοιχεία.'):(favorable?'Projected positive net present value.':'Review the investment assumptions.');
- $('decisionCopy').textContent=language==='el'?(favorable?`Ενδεικτική απόσβεση ${number(forecast.paybackYears,1)} έτη. Το αποτέλεσμα βασίζεται σε παραδοχές και δεν αποτελεί προσφορά.`:'Η καθαρή παρούσα αξία δεν είναι θετική ή δεν επιτυγχάνεται σταθερή απόσβεση. Σύγκρινε πραγματικές προσφορές.'):(favorable?`Illustrative payback in ${number(forecast.paybackYears,1)} years. Based on user-supplied tariffs and self-use assumptions, not a guarantee.`:'Modeled NPV is not positive or sustained payback is not achieved. Compare actual quotes and avoidable tariffs.');
-
+ $('decisionTitle').textContent=extra(favorable?'decisionPositive':'decisionCautious');
+ $('decisionCopy').textContent=favorable?extra('decisionPositiveDesc').replace('{years}',payback(forecast.paybackYears,forecast.inputs.lifetime)):extra('decisionCautiousDesc');
+ calculateLevers(forecast);
+}
+function renderForecast(forecast){
  $('paybackValue').textContent=payback(forecast.paybackYears,forecast.inputs.lifetime);
  $('savingsValue').textContent=money(forecast.annualSavings);
  $('productionValue').textContent=`${number(forecast.annualProduction)} kWh`;
@@ -184,14 +227,14 @@ function renderForecast(forecast){
  $('basePayback').textContent=payback(forecast.paybackYears,forecast.inputs.lifetime);
  $('highPayback').textContent=payback(upside.paybackYears,forecast.inputs.lifetime);
  $('moneyUnit').textContent=readCurrency();
- renderMonthChart(forecast);renderCashChart(forecast);renderInsights(forecast);renderTable(forecast);
+ renderDecision(forecast);renderMonthChart(forecast);renderCashChart(forecast);renderInsights(forecast);renderTable(forecast);
  const date=new Date(dataset.fetchedAt);const fetched=Number.isNaN(date.getTime())?'unknown':date.toISOString().slice(0,16).replace('T',' ')+' UTC';
  $('provenanceText').textContent=(language==='el'?
- `Παραγωγή: ${dataset.source}, βάση ${dataset.dataset}, ιστορικές κλιματολογικές τιμές (συνήθως 2005–2023). Ανάκτηση: ${fetched}. Οι τιμές ρεύματος, η ιδιοκατανάλωση, οι δαπάνες και ο συντελεστής CO₂ είναι μόνο παραδοχές χρήστη. Δεν περιλαμβάνονται φόροι ή χρηματοδότηση.`:
- `Solar production: ${dataset.source}; dataset ${dataset.dataset}; multi-year historic climate (typically 2005–2023). Retrieved ${fetched}. Tariffs, self-use, expenses and CO₂ factor are user assumptions, not live market feeds. No tax, financing, or battery model.`);
+ `Παραγωγή: ${dataset.source}, βάση ${dataset.dataset}, ιστορική περίοδος ${dataset.dataPeriod||'μη διαθέσιμη'}. Ανάκτηση: ${fetched}. Οι τιμές ρεύματος, η ιδιοκατανάλωση, οι δαπάνες και ο συντελεστής CO₂ είναι μόνο παραδοχές χρήστη. Δεν περιλαμβάνονται φόροι ή χρηματοδότηση.`:
+ `Solar production: ${dataset.source}; dataset ${dataset.dataset}; historic climate ${dataset.dataPeriod||'period not available'}. Retrieved ${fetched}. Tariffs, self-use, expenses and CO₂ factor are user assumptions, not live market feeds. No tax, financing, or battery model.`);
  $('exportBtn').disabled=false;
 }
-async function runCalculation(){let input;try{if(!form.checkValidity()){const invalid=form.querySelector(':invalid');if(invalid){invalid.focus();setFormError(t('inputError')+(invalid.labels?.[0]?.textContent||invalid.name));return}}input=serialize();setFormError('');}
+async function runCalculation(){let input;try{if(!form.checkValidity()){const invalid=form.querySelector(':invalid');if(invalid){const pane=invalid.closest('[data-pane]')||invalid.closest('.config-pane');if(pane?.id)setConfigTab(pane.id.replace('pane-',''));invalid.focus();setFormError(t('inputError')+(invalid.labels?.[0]?.textContent||invalid.name));return}}input=serialize();setFormError('');}
  catch(e){setFormError(t('inputError')+e.message);return}
  const count=++requestCounter;if(activeController)activeController.abort();activeController=new AbortController();setBusy(true);setStatus(t('calculating'),'pending');
  const keys=['lat','lon','peakKw','slope','aspect','loss','mounting'];const qs=new URLSearchParams();for(const key of keys)qs.set(key,String(input[key]));
@@ -227,6 +270,9 @@ function initialize(){
  document.querySelectorAll('[data-i18n-html]').forEach(el=>el.dataset.originalHtml=el.innerHTML);
  document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>el.dataset.originalPlaceholder=el.placeholder);
  restoreSettings();applyTranslations();showLocation();
+ document.querySelectorAll('[data-config-tab]').forEach(tab=>{tab.addEventListener('click',()=>setConfigTab(tab.dataset.configTab));tab.addEventListener('keydown',e=>{if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();const tabs=Array.from(document.querySelectorAll('[data-config-tab]'));const idx=tabs.indexOf(tab);const next=(idx+(e.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length;setConfigTab(tabs[next].dataset.configTab,true);}})});
+ document.querySelectorAll('[data-apply]').forEach(btn=>btn.addEventListener('click',()=>{if(btn.disabled||!result||!dataset)return;const target=form.elements[btn.dataset.field];target.value=btn.dataset.value;if(target.name==='selfUsePct')$('selfUseOutput').textContent=target.value+'%';setConfigTab(target.closest('.config-pane')?.id.replace('pane-','')||'finance');updateFromFinances();}));
+ $('printBtn').addEventListener('click',()=>window.print());
  $('languageToggle').addEventListener('click',()=>{language=language==='en'?'el':'en';applyTranslations();showLocation();if(!dataset)setStatus(t('staleText'),'pending');});
  form.addEventListener('submit',e=>{e.preventDefault();runCalculation()});
  form.addEventListener('input',onInput);form.addEventListener('change',onInput);

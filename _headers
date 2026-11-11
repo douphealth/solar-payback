@@ -8,6 +8,9 @@
 /styles.css
   Cache-Control: public, max-age=3600
 
+/studio.css
+  Cache-Control: public, max-age=3600
+
 /src/*
   Cache-Control: public, max-age=3600
 

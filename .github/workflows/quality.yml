@@ -20,5 +20,6 @@ jobs:
         run: |
           test -f dist/index.html
           test -f dist/styles.css
+          test -f dist/studio.css
           test -f dist/src/engine.js
           test -f dist/_headers

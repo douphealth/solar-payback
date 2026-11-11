@@ -3,11 +3,11 @@ import assert from 'node:assert/strict';
 import {parsePvgis,parseSolarQuery,createPvgisUrl} from '../src/pvgis.js';
 import {onRequestGet as fetchSolar} from '../functions/api/solar.js';
 import {onRequestGet as fetchPlaces} from '../functions/api/places.js';
-const parsed={outputs:{monthly:{fixed:Array.from({length:12},(_,i)=>({month:i+1,E_m:100}))},totals:{fixed:{E_y:1200}}},inputs:{meteo_data:{radiation_db:'PVGIS-SARAH3'}}};
+const parsed={outputs:{monthly:{fixed:Array.from({length:12},(_,i)=>({month:i+1,E_m:100}))},totals:{fixed:{E_y:1200}}},inputs:{meteo_data:{radiation_db:'PVGIS-SARAH3',year_min:2005,year_max:2023}}};
 const query='lat=37.98&lon=23.72&peakKw=5&slope=30&aspect=0&loss=14&mounting=free';
 
 test('PVGIS parser accepts all twelve official E_m records and their source metadata',()=>{
- const result=parsePvgis(parsed);assert.equal(result.annualKwh,1200);assert.equal(result.monthlyKwh[0],100);assert.equal(result.dataset,'PVGIS-SARAH3');
+ const result=parsePvgis(parsed);assert.equal(result.annualKwh,1200);assert.equal(result.monthlyKwh[0],100);assert.equal(result.dataset,'PVGIS-SARAH3');assert.equal(result.dataPeriod,'2005–2023');
 });
 test('PVGIS parsing rejects mismatched annual energy and duplicate months',()=>{
  assert.throws(()=>parsePvgis({...parsed,outputs:{...parsed.outputs,totals:{fixed:{E_y:3000}}}}),/disagree/);
@@ -42,4 +42,12 @@ test('location endpoint validates search and normalizes valid geocoding response
  try{const r=await fetchPlaces({request:new Request('https://example.com/api/places?q=Athens')});
  assert.equal(r.status,200);assert.equal((await r.json()).results[0].name,'Athens, Attica, Greece');}
  finally{globalThis.fetch=old;}
+});
+
+test('PVGIS temporal metadata never invents historical years',()=>{
+ const result=parsePvgis({...parsed,inputs:{meteo_data:{radiation_db:'PVGIS-ERA5'}}});
+ assert.match(result.dataPeriod,/exact years not supplied/);
+ assert.equal(result.annualIrradiationKwhM2,null);
+ const enriched=parsePvgis({...parsed,outputs:{...parsed.outputs,totals:{fixed:{E_y:1200,'H(i)_y':1700}}}});
+ assert.equal(enriched.annualIrradiationKwhM2,1700);
 });
