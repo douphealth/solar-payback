@@ -115,7 +115,7 @@ function setStatus(message,state='pending'){$('statusMessage').textContent=messa
 function setFormError(message){$('formError').hidden=!message;$('formError').textContent=message||''}
 function setBusy(busy){$('calculateBtn').disabled=busy;$('calculateBtn').setAttribute('aria-busy',String(busy));
  $('calculateBtnText').textContent=busy?(language==='el'?'Υπολογισμός…':'Calculating…'):(language==='el'?EL.calculate:'Calculate solar payback');}
-function resetVisuals(){for(const id of ['paybackValue','savingsValue','productionValue','npvValue','selfUsedValue','exportedValue','usageValue','ringPercent','upfrontValue','avoidedValue','exportValue','discountedPaybackValue','lcoeValue','lowPayback','basePayback','highPayback']) $(id).textContent='—';
+function resetVisuals(){for(const id of ['independenceValue','netReturnValue','specificYieldValue']) $(id).textContent='—';$('decisionTitle').textContent=language==='el'?'Γνώρισε την επένδυση πριν προχωρήσεις.':'Know your return before you invest.';$('decisionCopy').textContent=language==='el'?'Υπολόγισε την παραγωγή από πραγματικά δεδομένα PVGIS.':'Run an EU PVGIS assessment to see your projected return.';for(const id of ['paybackValue','savingsValue','productionValue','npvValue','selfUsedValue','exportedValue','usageValue','ringPercent','upfrontValue','avoidedValue','exportValue','discountedPaybackValue','lcoeValue','lowPayback','basePayback','highPayback']) $(id).textContent='—';
  $('monthlyChart').replaceChildren(createPlaceholder());$('cashChart').replaceChildren(createPlaceholder());$('energyRing').style.background='conic-gradient(#36545b 0%,#36545b 100%)';
  $('cashflowBody').replaceChildren();$('insightsList').replaceChildren(createPlaceholder(true));$('exportBtn').disabled=true;
  $('provenanceText').textContent=language==='el'?EL.provenancePending:'No PVGIS calculation has completed yet. Example prices are assumptions, not live tariff data.';
@@ -157,6 +157,14 @@ function renderTable(forecast){const body=$('cashflowBody');body.replaceChildren
  const values=[yr.year,number(yr.generation),number(yr.selfUsed),number(yr.exported),money(yr.avoidedPurchases),money(yr.exportRevenue),money(yr.cashflow),money(yr.cumulative)];
  for(const [i,value] of values.entries()){const cell=document.createElement(i===0?'th':'td');if(i===0)cell.scope='row';cell.textContent=String(value);tr.append(cell)}body.append(tr);}}
 function renderForecast(forecast){
+ const independence=forecast.inputs.annualUsage>0?100*forecast.annualSelfUsed/forecast.inputs.annualUsage:0;
+ $('independenceValue').textContent=forecast.inputs.annualUsage>0?`${number(independence,1)}%`:'N/A';
+ $('netReturnValue').textContent=money(forecast.lifetimeNetProfit);
+ $('specificYieldValue').textContent=`${number(forecast.annualProduction/forecast.inputs.peakKw)} kWh/kWp`;
+ const favorable=forecast.npv>0&&forecast.paybackYears!==null;
+ $('decisionTitle').textContent=language==='el'?(favorable?'Θετική εκτιμώμενη καθαρή παρούσα αξία.':'Έλεγξε προσεκτικά τα οικονομικά στοιχεία.'):(favorable?'Projected positive net present value.':'Review the investment assumptions.');
+ $('decisionCopy').textContent=language==='el'?(favorable?`Ενδεικτική απόσβεση ${number(forecast.paybackYears,1)} έτη. Το αποτέλεσμα βασίζεται σε παραδοχές και δεν αποτελεί προσφορά.`:'Η καθαρή παρούσα αξία δεν είναι θετική ή δεν επιτυγχάνεται σταθερή απόσβεση. Σύγκρινε πραγματικές προσφορές.'):(favorable?`Illustrative payback in ${number(forecast.paybackYears,1)} years. Based on user-supplied tariffs and self-use assumptions, not a guarantee.`:'Modeled NPV is not positive or sustained payback is not achieved. Compare actual quotes and avoidable tariffs.');
+
  $('paybackValue').textContent=payback(forecast.paybackYears,forecast.inputs.lifetime);
  $('savingsValue').textContent=money(forecast.annualSavings);
  $('productionValue').textContent=`${number(forecast.annualProduction)} kWh`;

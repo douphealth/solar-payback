@@ -8,6 +8,7 @@
   <title>SolarPayback — Solar investment clarity</title>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/premium.css">
   <script type="module" src="/src/main.js"></script>
 </head>
 <body>
@@ -84,7 +85,7 @@
         <section class="results-panel" aria-labelledby="resultsTitle">
           <div class="results-heading"><div><span class="section-overline">02 / <span data-i18n="yourAnalysis">YOUR ANALYSIS</span></span><h2 id="resultsTitle" data-i18n="financialPicture">Your solar financial picture</h2></div><span class="data-pill" id="sourceBadge"><span class="status-dot"></span><span data-i18n="pending">Awaiting verified data</span></span></div>
           <div class="status-banner" id="statusBanner" role="status" aria-live="polite"><span class="status-banner-symbol" aria-hidden="true">↗</span><span id="statusMessage">Calculating a sample Athens scenario using official PVGIS data. You can change any input.</span></div>
-          <div class="kpi-grid">
+          <article class="decision-cockpit" aria-labelledby="decisionTitle"><div class="decision-heading"><span>◉ &nbsp; SOLAR INTELLIGENCE / DECISION BRIEF</span><span class="decision-live">MODEL OUTPUT</span></div><div class="decision-core"><div><p class="decision-eyebrow">YOUR INVESTMENT OUTLOOK</p><h3 id="decisionTitle">Know your return before you invest.</h3><p id="decisionCopy" aria-live="polite">Run an EU PVGIS assessment to see projected return, energy independence and lifetime economics. Financial assumptions remain editable.</p></div><div class="decision-metrics"><div><small>ENERGY SELF-SUFFICIENCY</small><strong id="independenceValue">—</strong></div><div><small>LIFETIME NET RETURN</small><strong id="netReturnValue">—</strong></div><div><small>SPECIFIC SOLAR YIELD</small><strong id="specificYieldValue">—</strong></div></div></div></article><div class="kpi-grid">
             <article class="kpi-card kpi-featured"><div class="kpi-top"><span data-i18n="paybackLabel">Simple payback</span><span class="kpi-icon">↗</span></div><div class="kpi-value" id="paybackValue">—</div><div class="kpi-bottom" id="paybackHint" data-i18n="paybackAwait">When cumulative cash flow turns positive</div></article>
             <article class="kpi-card"><div class="kpi-top"><span data-i18n="firstSavings">First-year net cash flow</span><span class="kpi-icon muted">⌁</span></div><div class="kpi-value" id="savingsValue">—</div><div class="kpi-bottom" data-i18n="cashflowHint">After operating costs</div></article>
             <article class="kpi-card"><div class="kpi-top"><span data-i18n="annualOutput">Year-one solar output</span><span class="kpi-icon muted">☀</span></div><div class="kpi-value" id="productionValue">—</div><div class="kpi-bottom" id="productionHint" data-i18n="fromJrc">From PVGIS solar modeling</div></article>
