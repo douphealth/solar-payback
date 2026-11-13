@@ -1,7 +1,9 @@
-import {cp, mkdir, rm, writeFile} from 'node:fs/promises';
-const root=new URL('../',import.meta.url);
-const dir=new URL('../dist/',import.meta.url);
-await rm(dir,{recursive:true,force:true});
-await mkdir(dir,{recursive:true});
-for(const path of ['index.html','styles.css','studio.css','src','_headers','robots.txt','favicon.svg']) await cp(new URL('../'+path,import.meta.url),new URL('../dist/'+path,import.meta.url),{recursive:true});
-console.log('Built static site to dist/ (Cloudflare Pages Functions are deployed from functions/).');
+import { cp, mkdir, rm } from 'node:fs/promises';
+const output = new URL('../dist/', import.meta.url);
+const root = new URL('../', import.meta.url);
+await rm(output, { recursive: true, force: true });
+await mkdir(output, { recursive: true });
+for (const name of ['index.html', '_headers', '_worker.js', 'favicon.svg', 'robots.txt', 'assets', 'src']) {
+  await cp(new URL(name, root), new URL(name, output), { recursive: true });
+}
+console.log('Cloudflare Pages production assets written to dist/');

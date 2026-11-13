@@ -1,4 +1,4 @@
-name: Code and data quality
+name: SolarPayback quality
 on:
   push:
     branches: [main]
@@ -16,10 +16,11 @@ jobs:
           node-version: '22'
       - run: npm test
       - run: npm run build
-      - name: Verify output
+      - name: Verify Cloudflare Pages output
         run: |
-          test -f dist/index.html
-          test -f dist/styles.css
-          test -f dist/studio.css
-          test -f dist/src/engine.js
-          test -f dist/_headers
+          test -s dist/index.html
+          test -s dist/_worker.js
+          test -s dist/assets/app.js
+          test -s dist/assets/aurora.css
+          test -s dist/src/engine.js
+          test -s dist/_headers

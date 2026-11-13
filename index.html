@@ -1,108 +1,401 @@
-<!DOCTYPE html>
-
-<html lang="en">
+<!doctype html>
+<html lang="en" data-theme="dark">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<meta content="#f6f7f3" name="theme-color"/>
-<meta content="Model solar-panel payback with verified European Commission PVGIS production, transparent utility assumptions, NPV, energy flows, and 25-year cashflow." name="description"/>
-<title>SolarPayback — Solar ROI &amp; energy intelligence</title>
-<link href="/favicon.svg" rel="icon" type="image/svg+xml"/>
-<link href="/styles.css" rel="stylesheet"/><link href="/studio.css" rel="stylesheet"/>
-<script src="/src/main.js" type="module"></script>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b151c"><meta name="description" content="SolarPayback Aurora v7.5.0: Independent solar quote and utility bill analyzer, 36-city illustrative reference atlas, datasheet hardware catalog, 15/30/60-min interval simulator, and auditable cash flows.">
+<title>SolarPayback Aurora v7.5.0 | Independent Solar Quote, Bill &amp; Payback Analyzer</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/assets/aurora.css"><script type="module" src="/assets/app.js"></script>
 </head>
-<body class="app-body">
-<a class="skip-link" href="#calculator">Skip to calculator</a>
-<div class="site-shell">
-<header class="site-header" id="top">
-<a aria-label="SolarPayback home" class="brand" href="/"><span aria-hidden="true" class="brand-symbol"><svg fill="none" viewbox="0 0 40 40"><circle cx="20" cy="20" fill="currentColor" r="7"></circle><path d="M20 2v8m0 20v8M2 20h8m20 0h8M7.3 7.3 13 13m14 14 5.7 5.7M32.7 7.3 27 13M13 27l-5.7 5.7" stroke="currentColor" stroke-linecap="round" stroke-width="2.5"></path></svg></span>
-<span class="brand-name">SOLAR<span class="brand-accent">PAYBACK</span><small>ENERGY INTELLIGENCE</small></span></a>
-<nav aria-label="Main navigation" class="nav-links"><a class="nav-active" data-i18n="navCalculator" href="#calculator">Calculator</a><a data-i18n="navMethod" href="#method">Methodology</a><a data-i18n="navSources" href="#sources">Sources</a></nav>
-<div class="header-actions"><span class="top-provider"><span class="provider-dot"></span> EU JRC / PVGIS 5.3</span>
-<button aria-label="Switch language" class="lang-toggle" id="languageToggle" title="Switch English / Greek" type="button">ΕΛ</button>
-<button class="export-btn" disabled="" id="exportBtn" type="button"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v4h16v-4"></path></svg><span data-i18n="download">Export CSV</span></button></div>
-</header>
-<main>
-<section aria-labelledby="heroTitle" class="hero">
-<div class="hero-copy"><div class="eyebrow"><span class="eyebrow-line"></span><span data-i18n="heroKicker">SOLAR INVESTMENT INTELLIGENCE</span><span class="hero-edition">/ 2026</span></div>
-<h1 data-i18n-html="heroTitle" id="heroTitle">Every watt counted.<br/><em>Every euro explained.</em></h1>
-<p class="hero-desc" data-i18n="heroText">See what your roof could produce and what that energy may actually be worth — with trusted solar data and assumptions you control.</p>
-<div class="trust-line"><span><span class="trust-icon">●</span><span data-i18n="trustJrc">Official PVGIS production</span></span><span><span class="trust-icon">●</span><span data-i18n="trustMath">Auditable cash flows</span></span><span><span class="trust-icon">●</span><span data-i18n="trustPrivacy">No account required.</span></span></div>
-</div>
-<div aria-hidden="true" class="hero-visual"><svg preserveaspectratio="xMidYMid slice" viewbox="0 0 520 300"><defs><radialgradient id="heroSun"><stop offset="0" stop-color="#ffe3a0"></stop><stop offset="0.65" stop-color="#ffc777"></stop><stop offset="1" stop-color="#fcae55"></stop></radialgradient><lineargradient id="panelTint" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#385863"></stop><stop offset="1" stop-color="#142c38"></stop></lineargradient></defs>
-<circle cx="355" cy="107" fill="none" opacity=".18" r="104" stroke="#738a82"></circle><circle cx="355" cy="107" fill="none" opacity=".14" r="144" stroke="#738a82"></circle><circle cx="355" cy="107" fill="none" opacity=".12" r="184" stroke="#738a82"></circle>
-<circle cx="355" cy="107" fill="url(#heroSun)" r="63"></circle><circle cx="355" cy="107" fill="none" opacity=".32" r="75" stroke="#ffcd85"></circle><path d="M65 260L180 170 505 257V300H65Z" fill="#0c2329" stroke="#6b8585" stroke-width="1.5"></path><path d="M141 252L210 189 468 254Z" fill="url(#panelTint)" stroke="#54777e"></path><path d="M200 200L184 250M244 207L241 251M284 215L297 252M330 226L355 253M376 239L417 254M160 227H405" fill="none" opacity=".52" stroke="#74a8aa" stroke-width="1.3"></path>
-<circle cx="85" cy="48" fill="#a9e0c8" r="2.5"></circle><circle cx="105" cy="65" fill="#a9e0c8" r="1.5"></circle><circle cx="465" cy="65" fill="#ffca80" r="3"></circle>
-</svg><div class="hero-visual-caption"><span>POWERED BY REAL SOLAR DATA</span><strong>PVGIS <b>5.3</b></strong></div></div>
-</section>
-<div class="section-intro" id="calculator"><div><span class="section-overline" data-i18n="workbench">01 / YOUR SOLAR WORKSPACE</span><h2 data-i18n="calculatorTitle">Your investment, in focus.</h2><p data-i18n="calculatorSubtitle">Adjust the scenario. Inspect the numbers. Understand the trade-offs.</p></div><div class="section-intro-tools"><span class="section-intro-side" id="liveTag">EUROPEAN COMMISSION · PVGIS</span><button aria-label="Print investment summary" class="print-btn" id="printBtn" type="button"><span aria-hidden="true">↗</span> <span data-extra="printReport">Print report</span></button></div></div>
-<div class="workspace">
-<aside aria-labelledby="projectTitle" class="settings-panel">
-<div class="panel-heading"><div><span class="panel-index">STEP 01 — <span data-i18n="yourProject">YOUR PROJECT</span></span><h3 data-i18n="projectSettings" id="projectTitle">Make it yours.</h3><p class="panel-caption" data-extra="settingsHelp">Start with the location and system size. Fine-tune the economics when you're ready.</p></div><span class="panel-count">01<span>/03</span></span></div>
-<form autocomplete="off" id="projectForm" novalidate=""><div aria-label="Project settings categories" class="config-tabs" role="tablist"><button aria-controls="pane-system" aria-selected="true" class="config-tab is-active" data-config-tab="system" id="tab-system" role="tab" type="button"><span class="config-index">01</span><span data-extra="tabSystem">System</span></button><button aria-controls="pane-usage" aria-selected="false" class="config-tab" data-config-tab="usage" id="tab-usage" role="tab" type="button"><span class="config-index">02</span><span data-extra="tabUsage">Usage</span></button><button aria-controls="pane-finance" aria-selected="false" class="config-tab" data-config-tab="finance" id="tab-finance" role="tab" type="button"><span class="config-index">03</span><span data-extra="tabFinance">Costs</span></button></div>
-
-
-
-
-
-<div aria-labelledby="tab-system" class="config-pane is-active" id="pane-system" role="tabpanel"><fieldset class="form-section"><legend><span class="fieldset-number">01</span><span data-i18n="locationTitle">Location</span></legend>
-<label data-i18n="findPlace" for="placeSearch">Find your city</label>
-<div class="search-wrap"><input aria-controls="placeResults" aria-expanded="false" autocomplete="off" data-i18n-placeholder="searchPlaceholder" id="placeSearch" placeholder="Search a city or town" type="search"/><button aria-label="Search locations" class="search-action" id="searchBtn" type="button"><svg viewbox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 5 5"></path></svg></button></div>
-<div aria-label="Location search results" class="place-results" hidden="" id="placeResults" role="listbox"></div>
-<div class="location-caption"><span aria-hidden="true" class="location-pin">⌖</span><span id="selectedLocation">Athens, Greece · Example</span></div>
-<div class="field-row"><div class="field"><label data-i18n="latitude" for="lat">Latitude</label><input data-solar="" id="lat" max="90" min="-90" name="lat" required="" step="0.0001" type="number" value="37.9838"/></div><div class="field"><label data-i18n="longitude" for="lon">Longitude</label><input data-solar="" id="lon" max="180" min="-180" name="lon" required="" step="0.0001" type="number" value="23.7275"/></div></div>
-<div class="quick-locations"><span data-i18n="quickLocations">Quick locations</span><button data-place="athens" type="button">Athens</button><button data-place="london" type="button">London</button><button data-place="losangeles" type="button">Los Angeles</button></div>
-</fieldset><fieldset class="form-section"><legend><span class="fieldset-number">02</span><span data-i18n="systemTitle">Solar installation</span></legend>
-<div class="field-row"><div class="field"><label data-i18n="systemPower" for="peakKw">System size <span class="input-unit">kWp</span></label><input data-solar="" id="peakKw" max="1000" min="0.1" name="peakKw" required="" step="0.1" type="number" value="5.5"/></div><div class="field"><label data-i18n="systemLoss" for="loss">System losses <span class="input-unit">%</span></label><input data-solar="" id="loss" max="50" min="0" name="loss" required="" step="0.5" type="number" value="14"/></div></div>
-<div class="field-row"><div class="field"><label data-i18n="tilt" for="slope">Roof tilt <span class="input-unit">°</span></label><input data-solar="" id="slope" max="90" min="0" name="slope" required="" step="1" type="number" value="30"/></div><div class="field"><label data-i18n="orientation" for="aspect">Orientation <span class="input-unit">°</span></label><select data-solar="" id="aspect" name="aspect"><option value="0">South · 0°</option><option value="-45">South-east · −45°</option><option value="45">South-west · +45°</option><option value="-90">East · −90°</option><option value="90">West · +90°</option><option value="180">North · 180°</option></select></div></div>
-<div class="field"><label data-i18n="mounting" for="mounting">Panel mounting</label><select data-solar="" id="mounting" name="mounting"><option value="free">Ventilated / free-standing</option><option value="building">Building-integrated</option></select></div>
-</fieldset></div><div aria-labelledby="tab-usage" class="config-pane" hidden="" id="pane-usage" role="tabpanel"><fieldset class="form-section"><legend><span class="fieldset-number">03</span><span data-i18n="householdTitle">Your electricity</span></legend>
-<div class="field"><label data-i18n="annualUse" for="annualUsage">Annual electricity consumption <span class="input-unit">kWh</span></label><input id="annualUsage" max="10000000" min="0" name="annualUsage" required="" step="100" type="number" value="6500"/></div>
-<div class="field"><label data-i18n="loadProfile" for="usageProfile">Seasonal demand</label><select id="usageProfile" name="usageProfile"><option value="flat">Even across the year</option><option value="summer">Higher in summer</option><option value="winter">Higher in winter</option></select></div>
-<div class="field"><div class="range-label"><label data-i18n="selfUse" for="selfUsePct">Solar electricity used at home</label><output for="selfUsePct" id="selfUseOutput">45%</output></div><input id="selfUsePct" max="100" min="0" name="selfUsePct" step="5" type="range" value="45"/><p class="field-hint" data-i18n="selfUseHint">Estimated same-time use, before the monthly household demand cap. Not measured usage.</p></div>
-</fieldset></div><div aria-labelledby="tab-finance" class="config-pane" hidden="" id="pane-finance" role="tabpanel"><fieldset class="form-section"><legend><span class="fieldset-number">04</span><span data-i18n="economicsTitle">Your economics</span></legend>
-<div class="field"><label data-i18n="currency" for="currency">Currency (no automatic exchange conversion)</label><select id="currency" name="currency"><option value="EUR">EUR — €</option><option value="USD">USD — $</option><option value="GBP">GBP — £</option><option value="AUD">AUD — A$</option><option value="CAD">CAD — CA$</option><option value="INR">INR — ₹</option></select></div>
-<div class="field-row"><div class="field"><label data-i18n="installationCost" for="systemCost">Installed cost</label><input id="systemCost" min="0" name="systemCost" required="" step="50" type="number" value="7800"/></div><div class="field"><label data-i18n="grant" for="grant">Subsidy / grant</label><input id="grant" min="0" name="grant" required="" step="50" type="number" value="0"/></div></div>
-<div class="field-row"><div class="field"><label data-i18n="importRate" for="importRate">Avoidable grid cost per kWh</label><input id="importRate" min="0" name="importRate" required="" step="0.01" type="number" value="0.23"/></div><div class="field"><label data-i18n="exportRate" for="exportRate">Export credit / kWh</label><input id="exportRate" min="0" name="exportRate" required="" step="0.01" type="number" value="0.07"/></div></div>
-<p class="assumption-alert"><span aria-hidden="true">ⓘ</span><span data-i18n="priceDisclaimer">Sample costs and tariffs are illustrative, not live supplier quotes. Replace them with your actual contract figures.</span> Only the variable charges actually avoided by self-consumption belong in the grid rate; fixed bill components generally remain.</p>
-</fieldset><details class="advanced-section" id="advancedSettings"><summary><span data-i18n="advanced">Advanced assumptions</span><span aria-hidden="true" class="advanced-icon">+</span></summary>
-<div class="advanced-body">
-<div class="field-row"><div class="field"><label data-i18n="maintenance" for="annualMaintenance">Annual maintenance</label><input id="annualMaintenance" min="0" name="annualMaintenance" step="10" type="number" value="120"/></div><div class="field"><label data-i18n="insurance" for="annualInsurance">Annual insurance</label><input id="annualInsurance" min="0" name="annualInsurance" step="10" type="number" value="0"/></div></div>
-<div class="field-row"><div class="field"><label data-i18n="replacementYear" for="replacementYear">Inverter replacement (year)</label><input id="replacementYear" max="40" min="0" name="replacementYear" step="1" type="number" value="12"/></div><div class="field"><label data-i18n="replacementCost" for="replacementCost">Replacement cost</label><input id="replacementCost" min="0" name="replacementCost" step="50" type="number" value="1100"/></div></div>
-<div class="field-row"><div class="field"><label data-i18n="degradation" for="degradationPct">Annual panel degradation %</label><input id="degradationPct" max="5" min="0" name="degradationPct" step="0.1" type="number" value="0.5"/></div><div class="field"><label data-i18n="lifetime" for="lifetime">Project life (years)</label><input id="lifetime" max="40" min="1" name="lifetime" step="1" type="number" value="25"/></div></div>
-<div class="field-row"><div class="field"><label data-i18n="priceIncrease" for="utilityEscalationPct">Grid price change %/year</label><input id="utilityEscalationPct" max="30" min="-10" name="utilityEscalationPct" step="0.5" type="number" value="2"/></div><div class="field"><label data-i18n="exportIncrease" for="exportEscalationPct">Export rate change %/year</label><input id="exportEscalationPct" max="30" min="-10" name="exportEscalationPct" step="0.5" type="number" value="0"/></div></div>
-<div class="field-row"><div class="field"><label data-i18n="expenseIncrease" for="expenseEscalationPct">Operating cost change %/year</label><input id="expenseEscalationPct" max="30" min="-10" name="expenseEscalationPct" step="0.5" type="number" value="2"/></div><div class="field"><label data-i18n="discount" for="discountPct">Discount rate %</label><input id="discountPct" max="30" min="0" name="discountPct" step="0.5" type="number" value="4"/></div></div>
-<div class="field"><label data-i18n="carbonIntensity" for="co2KgPerKwh">Assumed grid emissions (kg CO₂/kWh)</label><input id="co2KgPerKwh" max="3" min="0" name="co2KgPerKwh" step="0.01" type="number" value="0.38"/></div>
-</div>
-</details></div><div class="form-footer"><p class="form-error" hidden="" id="formError" role="alert"></p><button class="calculate-btn" id="calculateBtn" type="submit"><span data-i18n="calculate" id="calculateBtnText">Calculate solar payback</span><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M4 12h16m-6-6 6 6-6 6"></path></svg></button><p class="privacy-note" data-i18n="privacyNote">No login. Your scenario settings stay in this browser; coordinates are sent only to PVGIS when calculating.</p></div>
-</form>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="app-shell">
+<aside class="rail" aria-label="Main navigation">
+  <button class="brand" type="button" data-route="overview" aria-label="SolarPayback home"><span class="brand-sun"><span></span></span><span class="brand-copy"><strong>solar<span>payback</span></strong><small>A U R O R A &nbsp; v 7 . 1 &nbsp; A U D I T E D</small></span></button>
+  <div class="rail-overline" data-i18n="workspace">YOUR WORKSPACE</div>
+  <nav id="mainNav" class="nav">
+    <button type="button" class="nav-item active" data-route="overview"><span class="nav-glyph">01</span><span data-i18n="navOverview">Command center</span><span class="nav-end">&rarr;</span></button>
+    <button type="button" class="nav-item" data-route="directory"><span class="nav-glyph">02</span><span data-i18n="navDirectory">Illustrative 36-city reference atlas</span><span class="nav-end">&rarr;</span></button>
+    <button type="button" class="nav-item" data-route="hardware"><span class="nav-glyph">03</span><span data-i18n="navHardware">Hardware directory</span><span class="nav-end">&rarr;</span></button>
+    <button type="button" class="nav-item" data-route="system"><span class="nav-glyph">04</span><span data-i18n="navSystem">System designer</span><span class="nav-end">&rarr;</span></button>
+    <button type="button" class="nav-item" data-route="energy"><span class="nav-glyph">05</span><span data-i18n="navEnergy">Energy intelligence</span><span class="nav-end">&rarr;</span></button>
+    <button type="button" class="nav-item" data-route="storage"><span class="nav-glyph">06</span><span data-i18n="navStorage">Battery studio</span><span class="nav-end">&rarr;</span></button>
+    <button type="button" class="nav-item" data-route="explore"><span class="nav-glyph">07</span><span data-i18n="navCompare">Scenario lab</span><span class="nav-end">&rarr;</span></button>
+    <button type="button" class="nav-item" data-route="finance"><span class="nav-glyph">08</span><span data-i18n="navFinance">Financials &amp; reports</span><span class="nav-end">&rarr;</span></button>
+    <button type="button" class="nav-item" data-route="evidence"><span class="nav-glyph">09</span><span data-i18n="navSources">Data &amp; methodology</span><span class="nav-end">&rarr;</span></button>
+  </nav>
+  <div class="rail-bottom"><div class="project-preview"><div class="preview-label"><span class="tiny-dot"></span> ACTIVE PROJECT</div><strong id="railLocation">Athens, Greece</strong><small id="railPower">5.5 kWp / 25 years</small><small id="railHardware">Trina Vertex S+ / Enphase IQ8</small><button type="button" class="rail-edit" data-route="directory">Switch city or tariff <span>&nearr;</span></button></div><div class="rail-foot">Engineered for precision, not guesses.<br><span>Aurora 7.0 SOTA / PVGIS 5.3 + NREL</span></div></div>
 </aside>
-<section aria-labelledby="resultsTitle" class="results-panel">
-<div class="results-heading"><div><span class="section-overline" data-i18n="yourAnalysis">02 / YOUR ANALYSIS</span><h2 data-i18n="financialPicture">The investment outlook</h2><p class="results-subtitle" data-extra="resultsSubtitle">PVGIS-backed generation. Transparent, editable economics.</p></div><span class="source-badge" id="sourceBadge"><span class="status-dot"></span><span data-i18n="pending">Awaiting verified data</span></span></div>
-<div aria-live="polite" class="status-banner" id="statusBanner" role="status"><span aria-hidden="true" class="status-banner-symbol">↗</span><span id="statusMessage">Calculating a sample Athens scenario using official PVGIS data. You can change any input.</span></div><article aria-labelledby="decisionTitle" class="decision-cockpit"><div class="decision-heading"><span class="decision-kicker"><span class="decision-pulse"></span><span data-extra="decisionBrief">INVESTMENT DECISION BRIEF</span></span><span class="model-tag">SIMULATION / NOT A QUOTE</span></div><div class="decision-core"><div class="decision-lead"><div class="decision-eyebrow" data-extra="decisionEyebrow">WHAT THE MODEL SAYS</div><h3 id="decisionTitle">Loading verified solar output…</h3><p aria-live="polite" id="decisionCopy">Actual EU JRC solar data will be used for the calculation.</p></div><div class="decision-metrics"><div><small data-extra="energyIndependence">ENERGY SELF-SUFFICIENCY</small><strong id="independenceValue">—</strong></div><div><small data-extra="lifetimeReturn">LIFETIME NET PROFIT</small><strong id="netReturnValue">—</strong></div><div><small data-extra="specificOutput">YIELD PER KWp</small><strong id="specificYieldValue">—</strong></div></div></div></article>
-<div class="kpi-grid">
-<article class="kpi-card kpi-featured"><div class="kpi-top"><span data-i18n="paybackLabel">Simple payback</span><span class="kpi-icon">↗</span></div><div class="kpi-value" id="paybackValue">—</div><div class="kpi-bottom" data-i18n="paybackAwait" id="paybackHint">When cumulative cash flow turns positive</div></article>
-<article class="kpi-card"><div class="kpi-top"><span data-i18n="firstSavings">First-year net cash flow</span><span class="kpi-icon muted">⌁</span></div><div class="kpi-value" id="savingsValue">—</div><div class="kpi-bottom" data-i18n="cashflowHint">After operating costs</div></article>
-<article class="kpi-card"><div class="kpi-top"><span data-i18n="annualOutput">Year-one solar output</span><span class="kpi-icon muted">☀</span></div><div class="kpi-value" id="productionValue">—</div><div class="kpi-bottom" data-i18n="fromJrc" id="productionHint">From PVGIS solar modeling</div></article>
-<article class="kpi-card"><div class="kpi-top"><span data-i18n="npvLabel">Net present value</span><span class="kpi-icon muted">◇</span></div><div class="kpi-value" id="npvValue">—</div><div class="kpi-bottom" data-i18n="npvHint">All discounted cash flows minus upfront cost</div></article>
-</div>
-<div class="chart-grid">
-<article class="chart-card"><div class="card-title-row"><div><span class="small-overline" data-i18n="energyProduction">ENERGY PRODUCTION</span><h3 data-i18n="monthlyProduction">Monthly generation</h3></div><span class="chart-unit">kWh</span></div><div aria-label="Monthly solar energy production. Run the calculation for a chart." class="monthly-chart" id="monthlyChart" role="img"><p class="chart-placeholder" data-i18n="chartPending">Verified production data will appear here.</p></div><p class="chart-footnote" data-i18n="yearOne" id="monthlyFootnote">Typical year, before future degradation</p></article>
-<article class="chart-card"><div class="card-title-row"><div><span class="small-overline" data-i18n="financialTrajectory">FINANCIAL TRAJECTORY</span><h3 data-i18n="cumulativeCashflow">Cumulative cash flow</h3></div><span class="chart-unit" id="moneyUnit">EUR</span></div><div class="cash-chart" id="cashChart"><p class="chart-placeholder" data-i18n="chartPending">Verified production data will appear here.</p></div><p class="chart-footnote" data-i18n="cashflowFootnote">Undiscounted · includes capital cost at year zero</p></article>
-</div>
-<div class="details-grid">
-<article class="detail-card"><div class="card-title-row"><div><span class="small-overline" data-i18n="electricityFlows">ELECTRICITY FLOWS</span><h3 data-i18n="whereEnergyGoes">Where your energy goes</h3></div></div><div class="energy-mix"><div class="ring" id="energyRing"><div class="ring-core"><span id="ringPercent">—</span><small data-i18n="selfConsumed">Self-used</small></div></div><div class="flow-legend"><div><span class="legend-marker used"></span><span data-i18n="usedAtHome">Used at home</span><strong id="selfUsedValue">—</strong></div><div><span class="legend-marker export"></span><span data-i18n="sentToGrid">Sent to the grid</span><strong id="exportedValue">—</strong></div><div><span class="legend-marker muted-ring"></span><span data-i18n="annualDemand">Annual home demand</span><strong id="usageValue">—</strong></div></div></div><p class="detail-note" data-i18n="energyNote">A monthly approximation using your assumed self-use percentage, not an hourly usage forecast.</p></article>
-<article class="detail-card"><div class="card-title-row"><div><span class="small-overline" data-i18n="investmentEconomics">INVESTMENT ECONOMICS</span><h3 data-i18n="behindReturn">What's behind the return</h3></div></div><dl class="economics-list"><div><dt data-i18n="netUpfront">Upfront after grant</dt><dd id="upfrontValue">—</dd></div><div><dt data-i18n="avoidedBills">Year-one avoided grid purchases</dt><dd id="avoidedValue">—</dd></div><div><dt data-i18n="exportIncome">Year-one export credit</dt><dd id="exportValue">—</dd></div><div><dt data-i18n="discountedPayback">Discounted payback</dt><dd id="discountedPaybackValue">—</dd></div><div><dt data-i18n="lcoe">Lifetime cost per generated kWh</dt><dd id="lcoeValue">—</dd></div></dl></article>
-</div><section aria-labelledby="opportunityTitle" class="opportunity-card"><div class="card-title-row"><div><span class="small-overline" data-extra="opportunityEyebrow">03 / THE OPPORTUNITY LAB</span><h3 data-extra="opportunityTitle" id="opportunityTitle">What would improve the numbers?</h3><p class="opportunity-desc" data-extra="opportunityIntro">Explore one-change-at-a-time assumptions. No extra solar API requests.</p></div><span aria-hidden="true" class="opportunity-icon">↗</span></div><div class="lever-grid"><div class="lever" data-lever="use"><div class="lever-top"><span class="lever-icon">↗</span><span data-extra="leverUse">Use more power onsite</span></div><strong id="leverUseValue">—</strong><p id="leverUseNote">—</p><button data-apply="use" disabled="" type="button"><span data-extra="applyLever">Apply assumption</span><span aria-hidden="true">→</span></button></div><div class="lever" data-lever="cost"><div class="lever-top"><span class="lever-icon">−</span><span data-extra="leverCost">Negotiate system price</span></div><strong id="leverCostValue">—</strong><p id="leverCostNote">—</p><button data-apply="cost" disabled="" type="button"><span data-extra="applyLever">Apply assumption</span><span aria-hidden="true">→</span></button></div><div class="lever" data-lever="price"><div class="lever-top"><span class="lever-icon">≋</span><span data-extra="leverPrice">Stress-test grid prices</span></div><strong id="leverPriceValue">—</strong><p id="leverPriceNote">—</p><button data-apply="price" disabled="" type="button"><span data-extra="applyLever">Apply assumption</span><span aria-hidden="true">→</span></button></div></div><p class="opportunity-disclaimer" data-extra="opportunityNote">Changes are hypothetical financial sensitivities, not supplier quotes or recommended tariffs.</p></section>
-<article class="sensitivity-card"><div class="card-title-row"><div><span class="small-overline" data-i18n="confidence">UNDERSTAND THE RANGE</span><h3 data-i18n="sensitivityTitle">What if sunshine differs?</h3></div><span class="sensitivity-tag" data-i18n="scenario">ILLUSTRATIVE ±10%</span></div><div class="scenario-grid"><div><span class="scenario-dot low"></span><span data-i18n="lowerYield">10% less output</span><strong id="lowPayback">—</strong></div><div class="scenario-center"><span class="scenario-dot base"></span><span data-i18n="baseYield">PVGIS baseline</span><strong id="basePayback">—</strong></div><div><span class="scenario-dot high"></span><span data-i18n="higherYield">10% more output</span><strong id="highPayback">—</strong></div></div><p class="detail-note" data-i18n="sensitivityNote">These are hypothetical energy-yield changes, not a statistical confidence interval.</p></article>
-<article class="insights-card" id="insightsCard"><div class="card-title-row"><div><span class="small-overline" data-i18n="decisionNotes">DECISION NOTES</span><h3 data-i18n="readTheFinePrint">Things worth knowing</h3></div></div><div class="insights-list" id="insightsList"><p class="chart-placeholder" data-i18n="insightsPending">Complete a calculation to see the key assumptions that shape this result.</p></div></article>
-<details class="cashflow-details" id="cashflowDetails"><summary><span data-i18n="annualSchedule">View full year-by-year cash flow</span><span aria-hidden="true">↗</span></summary><div class="table-scroll"><table id="cashflowTable"><caption data-i18n="tableCaption">Annual production, savings and cumulative return</caption><thead><tr><th data-i18n="year">Year</th><th data-i18n="generation">Generation</th><th data-i18n="selfUsed">Self-used</th><th data-i18n="export">Export</th><th data-i18n="billAvoidance">Bill avoidance</th><th data-i18n="exportCredit">Export credit</th><th data-i18n="netFlow">Net cash</th><th data-i18n="cumulative">Cumulative</th></tr></thead><tbody id="cashflowBody"></tbody></table></div></details>
-<div class="provenance" id="provenance"><span aria-hidden="true" class="provenance-mark">◎</span><div><strong data-i18n="dataProvenance">Data provenance</strong><p data-i18n="provenancePending" id="provenanceText">No PVGIS calculation completed yet. Reported prices are example assumptions, not sourced live tariff data.</p></div></div>
+<div class="app-content">
+<header class="toolbar"><div class="toolbar-location"><span class="toolbar-kicker">SOLAR INVESTMENT &amp; DIRECTORY STUDIO <span>/</span></span><strong id="topTitle">Command center</strong></div><div class="toolbar-actions"><span class="data-status" id="dataStatus"><span class="status-light"></span><span id="dataStatusText">Illustrative Reference</span></span><label class="sr-only" for="f-currency">Currency</label><select class="currency" id="f-currency" title="Currency unit only. No automatic FX conversion; re-enter actual tariffs and prices."><option value="EUR">EUR</option><option value="USD">USD</option><option value="GBP">GBP</option><option value="AUD">AUD</option><option value="CAD">CAD</option><option value="INR">INR</option></select><button type="button" class="tool-button" id="langToggle" aria-label="Switch language">EL</button><button type="button" class="tool-button" id="themeToggle" aria-label="Change appearance">LIGHT</button><button type="button" class="tool-export" id="topExport">EXPORT CSV <span>&nearr;</span></button></div></header>
+<main id="main" tabindex="-1">
+<div role="alert" id="errorBanner" class="error-banner" hidden></div>
+
+<!-- PAGE 01: COMMAND CENTER -->
+<section id="page-overview" class="page" data-page="overview">
+
+  <!-- C18: Above-the-Fold 30-Second Investment Verdict Strip -->
+  <div class="verdict-strip" id="topVerdictBar" aria-label="Quick investment summary">
+    <div class="verdict-strip-item">
+      <span>DATA PROVENANCE</span>
+      <strong id="stripProvenance">Illustrative Reference</strong>
+      <small id="stripDataset">Awaiting live PVGIS check</small>
+    </div>
+    <div class="verdict-strip-item">
+      <span>SUSTAINED PAYBACK</span>
+      <strong id="stripPayback">--</strong>
+      <small id="stripFirstPayback">First cross: --</small>
+    </div>
+    <div class="verdict-strip-item">
+      <span>25-YR NET PRESENT VALUE</span>
+      <strong id="stripNpv">--</strong>
+      <small id="stripMirr">IRR / MIRR: --</small>
+    </div>
+    <div class="verdict-strip-item">
+      <span>AVOIDABLE TARIFF VS LCOE</span>
+      <strong id="stripSpread">--</strong>
+      <small id="stripLcoe">Solar LCOE: --</small>
+    </div>
+    <div class="verdict-strip-item">
+      <span>EVIDENCE COMPLETENESS</span>
+      <strong id="stripEvidenceScore">0/4 Confirmed (Preliminary)</strong>
+      <small id="stripModeLabel">Monthly screening mode</small>
+    </div>
+    <div>
+      <button type="button" class="button button-accent" id="jumpQuoteAnalyzer" style="min-height:36px;font-size:10px;padding:0 12px">Analyze Bill &amp; Quotes &darr;</button>
+    </div>
+  </div>
+
+  <div class="hero"><div class="hero-noise"></div><div class="hero-text"><div class="hero-kicker"><span class="kicker-star">&#10038;</span> INDEPENDENT SOLAR QUOTE &amp; BILL ANALYZER <span class="hero-edition">AURORA v7.5.0</span></div><h1 data-i18n="heroTitle">Make sunlight make sense.</h1><p data-i18n="heroDesc">Audit installer quotes, separate avoidable electricity bill charges from fixed fees, and model 25-year solar and battery cash flows with explicit data provenance.</p><div class="hero-actions"><button type="button" class="button button-accent" data-route="directory">Illustrative 36-City Reference Atlas <span>&nearr;</span></button><button type="button" class="button button-outline" data-route="hardware">Tier-1 Hardware Bench <span>&nearr;</span></button><button type="button" class="button button-outline" id="refreshSolar">Sync Live Climate API <span>&#8635;</span></button></div><div class="hero-proof"><span><i></i> 36 Regional Reference Cities (Illustrative)</span><span><i></i> 13 Datasheet Hardware Reference Profiles</span><span><i></i> 8,760h Dispatch &amp; IRR/NPV Engine</span></div></div><div class="sun-visual" aria-hidden="true"><div class="sun-grid"></div><div class="sun-orbit o1"></div><div class="sun-orbit o2"></div><div class="sun-orbit o3"></div><div class="sun-core"></div><div class="sun-planet"></div><div class="sun-caption">ACTIVE ARRAY <strong id="heroPower">5.5 <span>kWp</span></strong><small id="heroLocation">ATHENS / GREECE</small></div></div></div>
+
+  <!-- Live Quick-Adjust Telemetry Dock -->
+  <div class="telemetry-dock" aria-label="Real-time simulation controls">
+    <div class="dock-control">
+      <div class="dock-head"><span>PV Array Size</span><strong id="dockKwVal">5.5 kWp</strong></div>
+      <input type="range" id="dockKwSlider" min="1" max="20" step="0.5" value="5.5" aria-label="Quick PV array size">
+      <div class="dock-sub"><span>1.0 kWp</span><span id="dockCostPreview">Capex: €7,800</span><span>20 kWp</span></div>
+    </div>
+    <div class="dock-control">
+      <div class="dock-head"><span>LFP Battery Storage</span><strong id="dockBattVal">0.0 kWh</strong></div>
+      <input type="range" id="dockBattSlider" min="0" max="30" step="1" value="0" aria-label="Quick battery capacity">
+      <div class="dock-sub"><span>0 kWh (PV Only)</span><span id="dockBattCostPreview">Batt: €0</span><span>30 kWh</span></div>
+    </div>
+    <div class="dock-control">
+      <div class="dock-head"><span>Direct Self-Use</span><strong id="dockSelfVal">45%</strong></div>
+      <input type="range" id="dockSelfSlider" min="10" max="95" step="1" value="45" aria-label="Quick self-consumption share">
+      <div class="dock-sub"><span>10% Export-Heavy</span><span>Daytime Match</span><span>95%</span></div>
+    </div>
+    <div class="dock-control">
+      <div class="dock-head"><span>Retail Import Tariff</span><strong id="dockRateVal">€0.24/kWh</strong></div>
+      <input type="range" id="dockRateSlider" min="0.08" max="0.60" step="0.01" value="0.24" aria-label="Quick retail electricity tariff">
+      <div class="dock-sub"><span>0.08/kWh</span><span id="dockExportPreview">Export: 0.07/kWh</span><span>0.60/kWh</span></div>
+    </div>
+  </div>
+
+  <div class="section-line"><div><div class="overline">01 / THE INVESTMENT VERDICT</div><h2 data-i18n="verdictTitle">Your payback &amp; return telemetry.</h2></div><button class="text-action" data-route="finance" type="button">Open 25-year financial ledger <span>&nearr;</span></button></div>
+  <div class="insight-banner"><div class="insight-symbol">&#10022;</div><div class="insight-copy"><div class="micro">MODEL INTERPRETATION</div><strong id="decisionTitle">Analyzing your solar project</strong><p id="decisionDescription">Results reflect stated inputs and data provenance.</p></div><div class="insight-grade"><span>CONFIDENCE LENS</span><strong id="gradeValue">PVGIS BENCHMARK</strong><small id="gradeNote">Auditable deterministic cash flows</small></div></div>
+
+  <div class="metrics-8">
+    <article class="metric featured"><span class="metric-top">01 &nbsp; SIMPLE PAYBACK <b>TIME</b></span><strong id="metricPayback">--</strong><p>Years to recover net upfront capex (<span id="metricUpfrontInline">--</span>)</p><span class="metric-badge" id="metricDiscountedBadge">Discounted: --</span><div class="metric-shape"></div></article>
+    <article class="metric"><span class="metric-top">02 &nbsp; NET PRESENT VALUE <b>NPV</b></span><strong id="metricNpv">--</strong><p>Present value after discount hurdle</p><span class="metric-badge" id="metricPiBadge">Profitability Index: --</span></article>
+    <article class="metric"><span class="metric-top">03 &nbsp; INTERNAL RATE OF RETURN <b>IRR</b></span><strong id="metricIrr">--</strong><p>Annualized effective return on capital</p><span class="metric-badge" id="metricRoiBadge">Net ROI: --</span></article>
+    <article class="metric"><span class="metric-top">04 &nbsp; YEAR-ONE GENERATION <b>PV</b></span><strong id="metricProduction">--</strong><p id="metricYield">Expected site-specific generation</p><span class="metric-badge" id="metricPshBadge">Opt Tilt: --</span></article>
+    <article class="metric"><span class="metric-top">05 &nbsp; ENERGY AUTONOMY <b>USE</b></span><strong id="metricAutonomy">--</strong><p>Household demand covered by solar + storage</p><span class="metric-badge" id="metricSelfShareBadge">PV Self-Used: --</span></article>
+    <article class="metric"><span class="metric-top">06 &nbsp; FIRST-YEAR NET SAVINGS <b>CASH</b></span><strong id="metricCash">--</strong><p>Avoided bill + export revenue minus O&amp;M</p><span class="metric-badge" id="metricLifetimeCashBadge">25-Yr Cumulative: --</span></article>
+    <article class="metric"><span class="metric-top">07 &nbsp; SOLAR COST OF ENERGY <b>LCOE</b></span><strong id="metricLcoe">--</strong><p>Discounted lifecycle cost per kWh produced</p><span class="metric-badge" id="metricSpreadBadge">vs Retail: --</span></article>
+    <article class="metric"><span class="metric-top">08 &nbsp; CARBON AVOIDED <b>CO2</b></span><strong id="metricCo2">--</strong><p>25-year avoided grid emissions from self-use</p><span class="metric-badge" id="metricTreesBadge">Grid factor: --</span></article>
+  </div>
+
+  <div class="dual-charts"><article class="surface chart-panel"><div class="card-heading"><div><div class="overline">02 / ENERGY SEASONS</div><h3 data-i18n="seasonsTitle">Monthly generation, self-use &amp; demand.</h3><p>Stacked direct self-use, battery shifting, and grid export against monthly household load.</p></div><span class="pill">kWh / month</span></div><div id="monthlyChart" class="plot" role="img" aria-label="Monthly solar generation chart"></div><div class="legend"><span><i class="swatch mint"></i> Used at home</span><span><i class="swatch peach"></i> Sent to grid</span><span><i class="swatch dotted"></i> Monthly home demand</span></div></article><article class="surface chart-panel"><div class="card-heading"><div><div class="overline">03 / FINANCIAL TRAJECTORY</div><h3 data-i18n="trajectoryTitle">The cumulative return curve.</h3><p>Nominal cumulative net cash flow (solid) and discounted NPV trajectory (dashed).</p></div><span class="pill" id="cashChartNote">25 years</span></div><div id="cashChart" class="plot" role="img" aria-label="Cumulative lifetime cash-flow chart"></div><div class="legend"><span><i class="swatch peach"></i> Nominal cumulative cash</span><span><i class="swatch mint"></i> Discounted NPV curve</span><span><i class="swatch dotted"></i> Break-even line</span></div></article></div>
+
+  <div class="overview-bottom"><article class="surface flow-panel"><div class="card-heading"><div><div class="overline">04 / POWER BALANCE &amp; AUDIT</div><h3 data-i18n="powerBalanceTitle">Where your energy goes.</h3><p>Annual PV allocation and automated assumption diagnostics.</p></div></div><div class="flow-layout"><div id="energyRing" class="energy-ring"><div><strong id="ringPct">--</strong><span>PV self-consumed</span></div></div><div class="flow-values"><div><span><i class="swatch mint"></i> Used on-site (direct + batt)</span><strong id="flowSelf">--</strong></div><div><span><i class="swatch peach"></i> Sold / exported to grid</span><strong id="flowExport">--</strong></div><div><span><i class="swatch blue"></i> Remaining grid import</span><strong id="flowImport">--</strong></div><div><span>Total annual household demand</span><strong id="flowUsage">--</strong></div></div></div><div id="overviewAuditFlags" class="audit-flags"></div></article><article class="surface next-panel"><div class="card-heading"><div><div class="overline">05 / MARGINAL VALUE LEVERS</div><h3 data-i18n="leversTitle">One-click optimization levers.</h3><p>Quantified NPV gain from each marginal adjustment to your current setup.</p></div></div><div id="quickWins" class="win-list"></div></article></div>
+  
+  <!-- C18 & Commercial Wedge: Independent Solar Quote & Bill Analyzer -->
+  <article class="surface large-card" id="quoteAnalyzerPanel">
+    <div class="card-heading">
+      <div>
+        <div class="overline">INDEPENDENT DECISION WEDGE</div>
+        <h3 data-i18n="quoteAnalyzerTitle">Utility Bill Decomposer &amp; Multi-Quote Comparator.</h3>
+        <p>Separate non-avoidable fixed standing charges from your true avoidable per-kWh rate, and benchmark up to 3 installer bids side-by-side using the active climate &amp; dispatch engine.</p>
+      </div>
+      <span class="pill" id="billEffectiveBadge">Avoidable rate active</span>
+    </div>
+    <div class="quote-analyzer-grid">
+      <div class="form-card" style="padding:16px;background:var(--surface2);border:1px solid var(--border);border-radius:13px">
+        <div class="overline">01 / BILL DECOMPOSER (AVOIDABLE VS FIXED FEES)</div>
+        <p style="font-size:11px;color:var(--muted);margin:6px 0 12px">Solar self-consumption only offsets variable per-kWh charges, never fixed standing or capacity fees.</p>
+        <div class="input-grid">
+          <label class="field">Annual gross electricity bill<input type="number" id="billTotalAnnual" min="0" max="500000" step="50" value="1850"></label>
+          <label class="field">Fixed standing/capacity fees (/yr)<input type="number" id="billFixedAnnual" min="0" max="200000" step="10" value="290"></label>
+        </div>
+        <div class="city-kpis" style="margin:12px 0 10px">
+          <div><span>Gross Apparent Rate</span><strong id="billGrossRate">--</strong></div>
+          <div><span>True Avoidable Rate</span><strong id="billTrueAvoidableRate">--</strong></div>
+          <div><span>Non-Avoidable Share</span><strong id="billFixedSharePct">--</strong></div>
+        </div>
+        <button type="button" class="button button-dark" id="applyTrueAvoidableRate" style="width:100%;min-height:36px;font-size:10px">Apply True Avoidable Rate to Model &nearr;</button>
+      </div>
+      <div>
+        <div class="overline" style="margin-bottom:8px">02 / SIDE-BY-SIDE INSTALLER QUOTE BENCHMARK</div>
+        <div class="quote-cards" id="installerQuoteCards">
+          <div class="quote-card" data-quote-slot="0">
+            <div>
+              <span class="micro">QUOTE A (SOLAR ONLY)</span>
+              <h4>Value String Bid</h4>
+            </div>
+            <div class="quote-inputs">
+              <label>Array (kWp) <input type="number" id="qa-kw-0" value="5.5" min="0.5" max="100" step="0.5"></label>
+              <label>Turnkey PV Cost <input type="number" id="qa-cost-0" value="7200" min="0" step="100"></label>
+              <label>Battery (kWh) <input type="number" id="qa-batt-0" value="0" min="0" max="100" step="0.5"></label>
+              <label title="Is roof scaffolding & fall protection included?">Scaffolding Incl. <input type="checkbox" id="qa-scaf-0"  style="width:16px;height:16px"></label><label title="Are AC/DC Type-2 surge protectors & sub-panel included?">AC/DC SPD Incl. <input type="checkbox" id="qa-spd-0"  style="width:16px;height:16px"></label><label title="Is DNO / Net-Billing connection engineering filing included?">Grid Permit Incl. <input type="checkbox" id="qa-grid-0" checked style="width:16px;height:16px"></label><label>Battery Cost <input type="number" id="qa-bcost-0" value="0" min="0" step="100"></label>
+            </div>
+            <div class="quote-kpis" id="qa-metrics-0"></div>
+            <button type="button" class="button button-ghost" data-load-quote="0" style="min-height:32px;font-size:10px">Load Quote A &nearr;</button>
+          </div>
+          <div class="quote-card" data-quote-slot="1">
+            <div>
+              <span class="micro">QUOTE B (PREMIUM PV)</span>
+              <h4>High-Eff N-Type Bid</h4>
+            </div>
+            <div class="quote-inputs">
+              <label>Array (kWp) <input type="number" id="qa-kw-1" value="6.5" min="0.5" max="100" step="0.5"></label>
+              <label>Turnkey PV Cost <input type="number" id="qa-cost-1" value="8600" min="0" step="100"></label>
+              <label>Battery (kWh) <input type="number" id="qa-batt-1" value="0" min="0" max="100" step="0.5"></label>
+              <label title="Is roof scaffolding & fall protection included?">Scaffolding Incl. <input type="checkbox" id="qa-scaf-1" checked style="width:16px;height:16px"></label><label title="Are AC/DC Type-2 surge protectors & sub-panel included?">AC/DC SPD Incl. <input type="checkbox" id="qa-spd-1" checked style="width:16px;height:16px"></label><label title="Is DNO / Net-Billing connection engineering filing included?">Grid Permit Incl. <input type="checkbox" id="qa-grid-1" checked style="width:16px;height:16px"></label><label>Battery Cost <input type="number" id="qa-bcost-1" value="0" min="0" step="100"></label>
+            </div>
+            <div class="quote-kpis" id="qa-metrics-1"></div>
+            <button type="button" class="button button-ghost" data-load-quote="1" style="min-height:32px;font-size:10px">Load Quote B &nearr;</button>
+          </div>
+          <div class="quote-card" data-quote-slot="2">
+            <div>
+              <span class="micro">QUOTE C (HYBRID + LFP)</span>
+              <h4>Solar + 10 kWh Storage</h4>
+            </div>
+            <div class="quote-inputs">
+              <label>Array (kWp) <input type="number" id="qa-kw-2" value="6.5" min="0.5" max="100" step="0.5"></label>
+              <label>Turnkey PV Cost <input type="number" id="qa-cost-2" value="8400" min="0" step="100"></label>
+              <label>Battery (kWh) <input type="number" id="qa-batt-2" value="10.2" min="0" max="100" step="0.5"></label>
+              <label title="Is roof scaffolding & fall protection included?">Scaffolding Incl. <input type="checkbox" id="qa-scaf-2" checked style="width:16px;height:16px"></label><label title="Are AC/DC Type-2 surge protectors & sub-panel included?">AC/DC SPD Incl. <input type="checkbox" id="qa-spd-2" checked style="width:16px;height:16px"></label><label title="Is DNO / Net-Billing connection engineering filing included?">Grid Permit Incl. <input type="checkbox" id="qa-grid-2" checked style="width:16px;height:16px"></label><label>Battery Cost <input type="number" id="qa-bcost-2" value="5800" min="0" step="100"></label>
+            </div>
+            <div class="quote-kpis" id="qa-metrics-2"></div>
+            <button type="button" class="button button-ghost" data-load-quote="2" style="min-height:32px;font-size:10px">Load Quote C &nearr;</button>
+          </div>
+        </div>
+        <div class="form-card" style="margin-top:12px;padding:12px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:12px">
+          <div class="overline">03 / QUOTE &amp; BILL FIELD EXTRACTOR + USER CONFIRMATION GATE</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:8px">
+            <input type="text" id="quotePasteInput" class="dir-search" style="flex:1;min-width:220px;height:34px;font-size:11px" placeholder="Paste contractor quote text (e.g. '6.5 kWp solar PV, turnkey €8,100, 10 kWh battery, scaffolding excluded')...">
+            <input type="file" id="quoteDocFile" accept=".pdf,.txt,.csv,.json,application/pdf" style="font-size:10px;max-width:180px" aria-label="Upload quote document">
+            <button type="button" class="button button-dark" id="runQuoteExtractBtn" style="min-height:34px;font-size:10px;padding:0 12px">Extract into Quote A &nearr;</button>
+          </div>
+          <div id="extractedFieldsStatus" style="font-size:10px;color:var(--muted);margin-top:6px">No document extracted yet. Paste quote text or upload a .pdf/.txt/.json/.csv bill or quote to extract fields & document hash with confidence tags.</div>
+          <div style="display:flex;flex-wrap:wrap;gap:14px;margin-top:8px;padding-top:8px;border-top:1px solid var(--border);font-size:10px">
+            <label class="dispatch-toggle"><input type="checkbox" id="confirmBillCheck"> <span>I confirmed avoidable bill rate from my actual utility invoice</span></label>
+            <label class="dispatch-toggle"><input type="checkbox" id="confirmQuoteCheck"> <span>I confirmed written installer quote prices, SKUs &amp; exclusions</span></label>
+            <label class="dispatch-toggle"><input type="checkbox" id="confirmSurveyCheck"> <span>On-site roof structural &amp; shade survey completed</span></label>
+          </div>
+        </div>
+        
+        <div class="form-card" id="commercialCheckoutPanel" style="margin-top:12px;padding:12px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:12px">
+          <div class="overline">04 / COMMERCIAL REPORT FULFILLMENT (CLOUDFLARE D1 + R2 + STRIPE CHECKOUT)</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:8px">
+            <input type="email" id="checkoutEmail" class="dir-search" style="flex:1;min-width:190px;height:34px;font-size:11px" placeholder="Customer email for order &amp; magic-link access...">
+            <select id="checkoutSku" class="dir-sort" style="height:34px;font-size:11px" aria-label="Select report tier">
+              <option value="report_single">Single-Quote &amp; Bill Check (€29 one-off)</option>
+              <option value="report_comparison_3" selected>3-Quote Comparison &amp; Battery Audit (€59 one-off)</option>
+            </select>
+            <button type="button" class="button button-dark" id="startStripeCheckoutBtn" style="min-height:34px;font-size:10px;padding:0 12px">Start Verified Checkout (/api/checkout) &nearr;</button>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:8px">
+            <button type="button" class="button button-ghost" id="authSessionBtn" style="min-height:32px;font-size:10px;padding:0 10px">1. Verify Email Session (/api/auth/session)</button>
+            <input type="text" id="orderLookupInput" class="dir-search" style="flex:1;min-width:160px;height:32px;font-size:11px" placeholder="Paid Order ID (e.g. ord_...) to retrieve private R2 PDF">
+            <button type="button" class="button button-ghost" id="retrievePaidReportBtn" style="min-height:32px;font-size:10px;padding:0 10px">Retrieve Paid R2 Report (/api/reports/:id) &darr;</button>
+          </div>
+          <div id="checkoutStatusMsg" style="font-size:10px;color:var(--muted);margin-top:6px">Free tier downloads a watermarked Preliminary Synopsis. Paid orders unlock server-signed R2 PDF reports after verified Stripe webhook completion.</div>
+        </div>
+
+        <div id="quoteAuditSummary" class="policy-rule" style="margin-top:12px"></div>
+        <div class="action-row" style="margin-top:12px">
+          <button type="button" class="button button-accent" id="downloadDecisionPdf">Download Audited PDF Report (.pdf) &darr;</button>
+          <button type="button" class="button button-dark" id="downloadDecisionBrief">Download Signed Decision Report (.html) &darr;</button>
+        </div>
+
+      </div>
+    </div>
+  </article>
+
+  <div class="bottom-provenance"><span class="signal"></span><span id="dataNotice">Solar climate benchmark active. Financial tariffs and capex reflect your editable scenario.</span><button type="button" data-route="evidence">View source details &amp; API status <span>&nearr;</span></button></div>
 </section>
-</div>
-<section class="method-section" id="method"><div class="method-intro"><span class="section-overline">03 / <span data-i18n="transparentMethod">TRANSPARENT BY DESIGN</span></span><h2 data-i18n-html="methodTitle">A good forecast should <em>show its working.</em></h2><p data-i18n="methodSubtitle">Solar physics and household economics belong to different datasets. We make that distinction explicit rather than hiding estimates behind a single magic number.</p></div><div class="method-steps"><div class="method-step"><span>01 / <span data-i18n="solarData">SOLAR DATA</span></span><h3 data-i18n="methodOneTitle">Location, not guesswork.</h3><p data-i18n="methodOneBody">The European Commission's PVGIS calculates a location- and orientation-specific typical year using historical irradiance and weather records.</p></div><div class="method-step"><span>02 / <span data-i18n="householdData">YOUR INPUTS</span></span><h3 data-i18n="methodTwoTitle">Your bills, your assumptions.</h3><p data-i18n="methodTwoBody">You control electricity prices, export credit, household demand, self-consumption and installation cost. These are never presented as verified live supplier quotes.</p></div><div class="method-step"><span>03 / <span data-i18n="cashflowData">LIFETIME MODEL</span></span><h3 data-i18n="methodThreeTitle">Year-by-year accountability.</h3><p data-i18n="methodThreeBody">The forecast includes generation degradation, annual expenses, inverter replacement, inflation assumptions, discounting and export revenue. Export the full schedule.</p></div></div></section>
-<footer class="site-footer" id="sources"><div class="footer-top"><div class="footer-brand"><span aria-hidden="true" class="brand-symbol small">✳</span><strong>SolarPayback</strong><span data-i18n="footerPitch">Better decisions, measured in daylight.</span></div><div class="footer-sources"><span data-i18n="sourceLabel">PRIMARY DATA &amp; DOCUMENTATION</span><a href="https://joint-research-centre.ec.europa.eu/photovoltaic-geographical-information-system-pvgis_en" rel="noopener noreferrer" target="_blank">European Commission · PVGIS ↗</a><a href="https://joint-research-centre.ec.europa.eu/photovoltaic-geographical-information-system-pvgis/using-pvgis-5/api-non-interactive-service_en" rel="noopener noreferrer" target="_blank">PVGIS 5.3 API documentation ↗</a><a href="https://open-meteo.com/en/docs/geocoding-api" rel="noopener noreferrer" target="_blank">Open-Meteo · location search ↗</a></div></div><div class="footer-bottom"><p data-i18n="footerCaveat">Planning estimates only. No promise of future production, tariff, incentive eligibility, or investment return. Verify local grid rules and installer quotes before spending.</p><span>© 2026 SolarPayback</span></div></footer>
-</main>
-</div>
-</body>
-</html>
+
+<!-- PAGE 02: GLOBAL SOLAR ATLAS & POLICY DIRECTORY -->
+<section id="page-directory" class="page" hidden data-page="directory">
+  <div class="page-title"><div><div class="overline">02 / ILLUSTRATIVE 36-CITY REFERENCE ATLAS</div><h1 data-i18n="dirHeadline">Illustrative 36-City Reference Atlas.</h1><p>Every city card computes indicative Payback, NPV, and Year-1 Generation for your current <strong id="dirCurrentKw">5.5 kWp</strong> array using illustrative regional reference parameters (unverified until live PVGIS is queried and local utility tariffs are confirmed).</p></div><button type="button" class="button button-accent" data-route="overview">Back to Command Center &nearr;</button></div>
+
+  <article class="surface dir-toolbar">
+    <div class="dir-pills" id="dirRegionPills">
+      <button type="button" class="dir-pill active" data-region="all">All 36 Cities</button>
+      <button type="button" class="dir-pill" data-region="south_eu">Southern Europe (12)</button>
+      <button type="button" class="dir-pill" data-region="north_eu">Northern &amp; Central Europe (18)</button>
+      <button type="button" class="dir-pill" data-region="global">Americas &amp; Oceania (6)</button>
+    </div>
+    <div class="dir-filters">
+      <input type="search" id="dirSearchInput" class="dir-search" placeholder="Filter by city or country (e.g. Athens, Germany, USA)..." aria-label="Filter cities">
+      <select id="dirSortSelect" class="dir-sort" aria-label="Sort cities by">
+        <option value="payback">Sort: Fastest Payback</option>
+        <option value="npv">Sort: Highest 25-Yr NPV</option>
+        <option value="yield">Sort: Highest Solar Yield (kWh/kWp)</option>
+        <option value="ghi">Sort: Highest GHI Irradiance (kWh/m²)</option>
+        <option value="tariff">Sort: Highest Retail Tariff</option>
+        <option value="co2">Sort: Highest Grid CO2 Offset</option>
+      </select>
+    </div>
+  </article>
+
+  <div id="cityDirectoryGrid" class="city-grid"></div>
+
+  <div class="section-line"><div><div class="overline">2026 REGULATORY &amp; NET-BILLING INTELLIGENCE</div><h2>National Solar Policy &amp; Incentive Directory.</h2></div><button type="button" class="text-action" data-route="finance">Customize tariffs in Finance &nearr;</button></div>
+  <div id="policyDirectoryGrid" class="policy-grid"></div>
+</section>
+
+<!-- PAGE 03: HARDWARE DIRECTORY & EQUIPMENT BENCH -->
+<section id="page-hardware" class="page" hidden data-page="hardware">
+  <div class="page-title"><div><div class="overline">03 / SOLAR HARDWARE REFERENCE CATALOG</div><h1 data-i18n="hwHeadline">Datasheet Reference Specs. <em>Compatibility Checked.</em></h1><p>Compare commercial N-Type IBC, HJT, and TOPCon solar modules, micro/hybrid inverters, and LFP home batteries from manufacturer datasheets. Applying a profile updates modeled degradation, footprint, inverter loss, and reference cost.</p></div><button type="button" class="button button-accent" data-route="system">Open System Studio &nearr;</button></div>
+
+  <div id="hwCompatBanner" class="hw-compat-banner" hidden></div>
+  <div class="equip-banner" aria-label="Currently equipped hardware stack">
+    <div class="equip-slot">
+      <span>ACTIVE PV MODULE</span>
+      <strong id="equipModuleName">Trina Vertex S+ (TSM-450NEG9R.28)</strong>
+      <small id="equipModuleSpec">450 W | 22.5% Eff | 0.40%/yr Degradation</small>
+    </div>
+    <div class="equip-slot">
+      <span>ACTIVE INVERTER ARCHITECTURE</span>
+      <strong id="equipInverterName">Fronius Primo GEN24 Plus</strong>
+      <small id="equipInverterSpec">97.2% Euro Eff | 12.5% Sys Loss | Yr 13 Repl</small>
+    </div>
+    <div class="equip-slot">
+      <span>ACTIVE LFP BATTERY PACK</span>
+      <strong id="equipBatteryName">No Battery (PV Only)</strong>
+      <small id="equipBatterySpec">0 kWh Usable | Select a battery below to pair storage</small>
+    </div>
+  </div>
+
+  <div class="section-line"><div><div class="overline">01 / PHOTOVOLTAIC MODULES (IBC, HJT &amp; N-TYPE TOPCON)</div><h2>Photovoltaic Module Reference Profiles.</h2></div></div>
+  <div id="hwModulesGrid" class="hw-grid"></div>
+
+  <div class="section-line"><div><div class="overline">02 / POWER ELECTRONICS (MICRO, OPTIMIZED &amp; HYBRID)</div><h2>Solar Inverters.</h2></div></div>
+  <div id="hwInvertersGrid" class="hw-grid"></div>
+
+  <div class="section-line"><div><div class="overline">03 / LITHIUM IRON PHOSPHATE (LFP) ENERGY STORAGE</div><h2>Home Battery Systems.</h2></div><button type="button" class="text-action" id="clearBatteryEquip">Reset to 0 kWh (PV Only) &times;</button></div>
+  <div id="hwBatteriesGrid" class="hw-grid"></div>
+</section>
+
+<!-- PAGE 04: SYSTEM DESIGNER & ROOF STUDIO -->
+<section id="page-system" class="page" hidden data-page="system"><div class="page-title"><div><div class="overline">04 / DESIGN STUDIO</div><h1>Built for <em>your roof.</em></h1><p>Start with your address, array size, and panel geometry. Climate production and geometry efficiency factors update automatically.</p></div><button type="button" class="button button-dark" id="designRefresh">Refresh production &nearr;</button></div>
+  <div class="design-layout"><div class="form-column"><article class="surface form-card"><div class="form-head"><span class="step-count">01</span><div><h3>Where will it live?</h3><p>Search any global city via Open-Meteo Geocoding or select a preset.</p></div></div><label class="field">Search a place <div class="search-box"><input type="search" id="citySearch" placeholder="e.g. Athens, Thessaloniki, Munich, Austin..." autocomplete="off"><button type="button" id="citySearchBtn">SEARCH</button></div></label><div id="placeResults" class="place-results" hidden></div><div class="city-shortcuts"><button type="button" data-city="athens">Athens</button><button type="button" data-city="madrid">Madrid</button><button type="button" data-city="munich">Munich</button><button type="button" data-city="rome">Rome</button><button type="button" data-city="london">London</button><button type="button" data-city="amsterdam">Amsterdam</button><button type="button" data-city="los_angeles">Los Angeles</button><button type="button" data-city="phoenix">Phoenix</button><button type="button" data-city="newyork">New York</button><button type="button" data-city="melbourne">Melbourne</button></div><div class="input-grid"><label class="field">Latitude <input type="number" id="f-lat" min="-90" max="90" step="0.0001"></label><label class="field">Longitude <input type="number" id="f-lon" min="-180" max="180" step="0.0001"></label></div></article>
+  <article class="surface form-card"><div class="form-head"><span class="step-count">02</span><div><h3>Define your solar array &amp; geometry.</h3><p>Generation is calculated using this exact tilt, azimuth, and mounting setup.</p></div></div><div class="input-grid"><label class="field">Solar array (kWp)<input type="number" id="f-peakKw" min="0.1" max="1000" step="0.1"></label><label class="field">System losses (%)<input type="number" id="f-loss" min="0" max="50" step="0.5"></label><label class="field">Tilt (&deg;) <input type="number" id="f-slope" min="0" max="90" step="1"></label><label class="field">Azimuth from south (&deg;) <input type="number" id="f-aspect" min="-180" max="180" step="5"></label></div><label class="field" style="margin-top:12px">Panel mounting<select id="f-mounting"><option value="free">Ventilated / free-standing</option><option value="building">Integrated / building (BIPV)</option></select></label><div class="range-row"><span>Quick PV size</span><strong id="sizeTag">5.5 kWp</strong></div><input type="range" id="sizeSlider" min="1" max="20" step="0.5" value="5.5" aria-label="Solar array size">
+  <div class="geo-Factor-grid">
+    <div class="geo-box"><span>Optimal Tilt</span><strong id="geoOptTilt">32&deg;</strong></div>
+    <div class="geo-box"><span>Tilt Efficiency</span><strong id="geoTiltFactor">100.0%</strong></div>
+    <div class="geo-box"><span>Azimuth Factor</span><strong id="geoAspectFactor">100.0%</strong></div>
+    <div class="geo-box"><span>Mounting Factor</span><strong id="geoMountFactor">100.0%</strong></div>
+  </div>
+  <div class="action-row"><button type="button" class="button button-accent" id="snapOptimalGeo">Snap to Optimal Tilt &amp; 0&deg; South Azimuth &nearr;</button></div>
+  </article>
+  <article class="surface form-card"><div class="form-head"><span class="step-count">03</span><div><h3>Roof-fit sketch.</h3><p>Area-based planning using your active module footprint (<span id="roofModuleAreaLabel">2.00 m&sup2;</span>).</p></div></div><div class="input-grid"><label class="field">Roof length (m)<input id="roofLength" type="number" min="1" max="200" step="0.5" value="12"></label><label class="field">Roof width (m)<input id="roofWidth" type="number" min="1" max="200" step="0.5" value="6"></label><label class="field">Usable area (%)<input id="roofUsable" type="number" min="20" max="95" step="5" value="72"></label><label class="field">Panel rating (W)<input id="moduleWatts" type="number" min="200" max="800" step="5" value="450"></label></div></article></div>
+  <div class="design-output"><article class="roof-stage"><div class="roof-top"><span class="stage-overline">YOUR ROOFTOP / CONCEPT SKETCH</span><span id="roofBadge">PROPORTION STUDY</span></div><div class="roof-sky"><div class="roof-sun"></div><div class="roof-canvas" id="roofCanvas"></div><span class="roof-axis">NOT TO SCALE / NO SHADE STUDY</span></div><div class="roof-summary"><div><span>Estimated roof capacity</span><strong id="roofCapacity">--</strong></div><div><span>Modules by area</span><strong id="roofPanels">--</strong></div><div><span>Usable roof area</span><strong id="roofArea">--</strong></div></div><p id="roofWarning" class="roof-warning">Do not buy panels based on this area estimate alone. Confirm structural loads, setbacks, walkways and shading.</p></article><article class="surface note-card"><div class="overline">ACTIVE SOLAR SOURCE</div><strong id="designSource">PVGIS / Benchmark Climate Model</strong><p id="designSourceDetail">Estimates historical climate output for the chosen coordinates, geometry and mounting.</p><button type="button" class="text-action" data-route="evidence">Inspect evidence &nearr;</button></article></div></div>
+</section>
+
+<!-- PAGE 05: ENERGY INTELLIGENCE & 24H/8760H DISPATCH -->
+<section id="page-energy" class="page" hidden data-page="energy"><div class="page-title"><div><div class="overline">05 / HOUSEHOLD INTELLIGENCE</div><h1>Every hour <em>matters.</em></h1><p>Simulate 24-hour solar-to-load dispatch across residential, remote-work, and commercial profiles, test smart midday load shifting, or import 8,760-hour meter CSVs.</p></div><span class="headline-badge" id="energyMode">MONTHLY + 24H DISPATCH</span></div>
+  <div class="two-col"><article class="surface form-card"><div class="form-head"><span class="step-count">01</span><div><h3>Your electricity demand.</h3><p>Configure annual consumption, seasonal shape, and direct daytime overlap.</p></div></div><div class="input-grid"><label class="field">Annual electricity use (kWh)<input id="f-annualUsage" type="number" min="0" max="10000000" step="100"></label><label class="field">Seasonal demand<select id="f-usageProfile"><option value="flat">Evenly distributed</option><option value="summer">More in summer (A/C peak)</option><option value="winter">More in winter (Heat pump)</option></select></label></div><div class="range-row"><span>Direct self-use assumption</span><strong id="selfUseTag">45%</strong></div><input id="f-selfUsePct" type="number" min="0" max="100" step="1" aria-label="Self-consumption share percentage"><input id="selfUseSlider" type="range" min="0" max="100" step="1" value="45" aria-label="Self-consumption percentage slider"><p class="micro-note">Until you import matching 8,760h data, this percentage sets baseline direct daytime self-consumption.</p></article>
+  <article class="surface form-card"><div class="form-head"><span class="step-count">02</span><div><h3>Upgrade to 8,760-hour fidelity.</h3><p>Match hourly consumption against 8,760-hour historical solar irradiance.</p></div></div><div class="import-drop"><label for="meterFile" class="import-title">IMPORT YOUR HOURLY ELECTRICITY CSV</label><input type="file" id="meterFile" accept=".csv,text/csv"><p>UTC-aligned 8,760-hour year, consumption in kWh. Processed 100% locally in your browser.</p><div class="action-row" style="margin-top:8px"><button id="sampleCSV" type="button" class="text-action">Download 8,760h CSV template &darr;</button><button id="loadDemo8760" type="button" class="text-action">One-Click Load Demo 8,760h Dataset &nearr;</button></div></div><div class="field-row" style="margin-top:12px"><label class="field">Solar history year<select id="hourlyYear"><option value="2023">2023</option><option value="2022">2022</option></select></label><button type="button" class="button button-dark" id="fetchHourly">Fetch 8,760 Solar Hours</button></div><p class="api-line" id="meterStatus">No meter file loaded.</p><p class="api-line" id="pvHourlyStatus">Hourly solar series not loaded.</p><div class="action-row"><button type="button" class="button button-accent" id="activateHourly">Activate 8,760h Simulation</button><button type="button" class="button button-ghost" id="exitHourly">Use monthly model</button></div></article></div>
+ <article class="surface large-card"><div class="card-heading"><div><div class="overline">24-HOUR DISPATCH SIMULATOR</div><h3>Consumption meets generation &amp; battery SOC.</h3><p id="energyChartDesc">Interactive 24-hour dispatch showing solar output, home demand, and battery state-of-charge.</p></div><label class="field compact">Day of year <input type="range" min="0" max="364" step="1" id="daySlider" value="173"><span id="dayLabel">Day 174 (Jun 23)</span></label></div>
+ <div class="dispatch-controls">
+   <label class="field" style="flex-direction:row;align-items:center;gap:8px;margin:0"><span>Daily Load Profile:</span>
+     <select id="dispatchPattern" class="dir-sort">
+       <option value="home">Residential (Morning &amp; Evening Peaks)</option>
+       <option value="day">Remote Work / WFH (Strong Daytime Overlap)</option>
+       <option value="business">Commercial / Office (08:00–18:00 Load)</option>
+     </select>
+   </label>
+   <label class="dispatch-toggle"><input type="checkbox" id="dispatchShift"> <span>Smart Midday Load Shifting (Shift EV / Heat Pump / Appliances to 10:00–15:00)</span></label>
+   <span class="pill" id="dispatchSummaryPill">Daily Self-Use: --</span>
+ </div>
+ <div id="dayPlot" class="day-plot" role="img" aria-label="Solar, load and battery SOC profile"></div><div class="legend"><span><i class="swatch peach"></i> Solar PV (kW)</span><span><i class="swatch mint"></i> Home Demand (kW)</span><span><i class="swatch blue"></i> Battery SOC (kWh)</span></div></article><div class="metric-band"><div><small>Annual solar self-use</small><strong id="energyOwn">--</strong></div><div><small>Grid electricity imported</small><strong id="energyGrid">--</strong></div><div><small>Energy independence</small><strong id="energyInd">--</strong></div><div><small>Analysis type</small><strong id="energyAccuracy">Assumed</strong></div></div>
+</section>
+
+<!-- PAGE 06: BATTERY STUDIO -->
+<section id="page-storage" class="page" hidden data-page="storage"><div class="page-title"><div><div class="overline">06 / STORAGE ECONOMICS</div><h1>Power for <em>after sunset.</em></h1><p>Compare PV alone with PV plus battery and smart load shifting. See the exact incremental NPV, payback delta, and round-trip efficiency loss.</p></div><button type="button" class="button button-outline" data-route="hardware">Browse Battery Hardware Directory &nearr;</button></div>
+  <div class="storage-layout"><article class="surface form-card"><div class="form-head"><span class="step-count">01</span><div><h3>Configure your LFP battery.</h3><p>Includes conversion losses, inverter charge/discharge limits, and annual capacity fade.</p></div></div>
+  <div class="city-shortcuts" id="quickBatteryPresets">
+    <button type="button" data-batt-preset="none">0 kWh (PV Only)</button>
+    <button type="button" data-batt-preset="huawei_luna2000_10">Huawei LUNA 10 kWh</button>
+    <button type="button" data-batt-preset="enphase_iq_5p_dual">Enphase 2x 5P (10 kWh)</button>
+    <button type="button" data-batt-preset="byd_hvs_10_2">BYD HVS 10.2 kWh</button>
+    <button type="button" data-batt-preset="tesla_pw3">Tesla Powerwall 3 (13.5 kWh)</button>
+  </div>
+  <div class="input-grid"><label class="field">Usable storage capacity (kWh)<input id="f-batteryKwh" type="number" min="0" max="500" step="0.1"></label><label class="field">Installed battery cost<input id="f-batteryCost" type="number" min="0" step="100"></label><label class="field">Round-trip efficiency (%)<input id="f-batteryEfficiencyPct" type="number" min="50" max="100" step="1"></label><label class="field">Annual battery capacity fade (%)<input id="f-batteryFadePct" type="number" min="0" max="8" step="0.1"></label><label class="field">Charge/discharge power (kW)<input id="batteryPower" type="number" min="0.5" max="100" step="0.1" value="5"></label></div><div class="range-row"><span>Battery capacity</span><strong id="batteryTag">0 kWh</strong></div><input id="batterySlider" type="range" min="0" max="30" step="0.5" value="0"><p class="micro-note">Storage value depends heavily on the spread between avoidable retail import rate and export compensation.</p></article><article class="storage-showcase"><div class="stage-overline">ENERGY STORED, VALUE EXPLAINED</div><div class="storage-orbit"><div class="battery-art"><div id="batteryFill" class="battery-fill"></div><strong id="batteryArtValue">0</strong><small>kWh</small></div></div><h2 id="batteryTitle">Storage is a choice, not an assumption.</h2><p id="batteryDescription">See whether extra self-consumption pays for the installed battery in your specific scenario.</p><div class="battery-indicators"><div><small>Independence improvement</small><strong id="batteryIndDelta">--</strong></div><div><small>Incremental NPV</small><strong id="batteryNpvDelta">--</strong></div></div></article></div>
+  <article class="surface large-card"><div class="card-heading"><div><div class="overline">THE ACTUAL TRADEOFF</div><h3>PV-Only vs. PV + Storage vs. Smart Load Shifting.</h3><p>Side-by-side comparison across self-consumption, autonomy, IRR, NPV, and simple payback.</p></div></div><div class="table-wrap"><table><thead><tr><th>Configuration</th><th>Annual Self-Use</th><th>Energy Independence</th><th>Internal Rate (IRR)</th><th>Net Present Value</th><th>Simple Payback</th></tr></thead><tbody id="batteryComparison"></tbody></table></div></article>
+</section>
+
+<!-- PAGE 07: SCENARIO LAB & 3x3 SENSITIVITY MATRIX -->
+<section id="page-explore" class="page" hidden data-page="explore"><div class="page-title"><div><div class="overline">07 / THE OPPORTUNITY LAB</div><h1>Explore <em>the upside.</em></h1><p>Test marginal levers, inspect the 3&times;3 Yield-vs-Escalation sensitivity matrix, right-size your array, and save up to 12 scenarios locally.</p></div><button class="button button-dark" type="button" id="saveScenario">Save this scenario +</button></div>
+  <article class="surface large-card"><div class="card-heading"><div><div class="overline">WHAT IF YOU CHANGED ONE THING?</div><h3>Three levers worth testing.</h3><p>Each delta is recomputed from your current inputs, not a generic savings claim.</p></div></div><div class="lever-grid" id="scenarioLevers"></div></article>
+  <article class="surface large-card"><div class="card-heading"><div><div class="overline">RISK &amp; RESILIENCE</div><h3>How robust is the return?</h3><p>Deterministic stress scenarios combining PV yield and retail tariff shifts.</p></div></div><div id="scenarioStress" class="stress-grid"></div></article>
+  <article class="surface large-card"><div class="card-heading"><div><div class="overline">3&times;3 MULTIVARIATE SENSITIVITY MATRIX</div><h3>PV Yield Multiplier vs. Utility Tariff Escalation.</h3><p>Modeled Net Present Value (NPV), Internal Rate of Return (IRR), and Simple Payback across 9 combined climate and energy-inflation futures.</p></div></div><div class="table-wrap"><table><thead><tr><th>Tariff Escalation \ PV Yield</th><th>0.90&times; Yield (Cloudy / Shaded)</th><th>1.00&times; Yield (Baseline Climate)</th><th>1.10&times; Yield (High Irradiance / Bifacial)</th></tr></thead><tbody id="sensitivityMatrixBody"></tbody></table></div></article>
+  <article class="surface large-card"><div class="card-heading"><div><div class="overline">RIGHT SIZE IT</div><h3>Which array size fits your economics?</h3><p>Compare 6 array capacities scaled to your current location and consumption profile.</p></div><button type="button" class="button button-dark" id="compareSizes">Calculate alternatives &nearr;</button></div><div id="sizeComparison" class="size-grid"></div></article>
+  <article class="surface large-card"><div class="card-heading"><div><div class="overline">SCENARIO VAULT</div><h3>Keep your best ideas.</h3><p>Saved locally in your browser. Export JSON for a full project backup.</p></div><div class="card-actions"><button type="button" class="button button-ghost" id="exportProject">Export project JSON &darr;</button><button type="button" class="button button-ghost" id="importProject">Import saved project &uarr;</button><input type="file" id="projectFile" hidden accept=".json,application/json"></div></div><div id="scenarioList" class="scenario-list"></div></article>
+</section>
+
+<!-- PAGE 08: FINANCIALS & AUDIT LEDGER -->
+<section id="page-finance" class="page" hidden data-page="finance"><div class="page-title"><div><div class="overline">08 / THE MONEY MODEL</div><h1>Every number. <em>Accounted for.</em></h1><p>Investment, annual cash flows, avoided electricity, export payments, debt amortization, discounting, maintenance and replacements.</p></div><div class="card-actions"><button type="button" class="button button-ghost" id="exportCSV">Export CSV &darr;</button><button type="button" class="button button-dark" id="printReport">Print report &nearr;</button></div></div>
+  <div class="finance-layout"><article class="surface form-card"><div class="form-head"><span class="step-count">01</span><div><h3>Actual price assumptions.</h3><p>Replace defaults with the variable part of your real bill and installer quote.</p></div></div><div class="input-grid"><label class="field">PV installation cost<input type="number" id="f-systemCost" min="0" step="100"></label><label class="field">Confirmed grant / subsidy<input type="number" id="f-grant" min="0" step="100"></label><label class="field">Avoidable import price / kWh<input type="number" id="f-importRate" min="0" step="0.01"></label><label class="field">Export compensation / kWh<input type="number" id="f-exportRate" min="0" step="0.01"></label><label class="field">Annual maintenance<input type="number" id="f-annualMaintenance" min="0" step="10"></label><label class="field">Annual insurance<input type="number" id="f-annualInsurance" min="0" step="10"></label></div><details class="advanced" open><summary>Long-term financial &amp; degradation assumptions</summary><div class="input-grid advanced-fields"><label class="field">Project lifetime (years)<input type="number" id="f-lifetime" min="1" max="40" step="1"></label><label class="field">Annual PV degradation (%)<input type="number" id="f-degradationPct" min="0" max="5" step="0.05"></label><label class="field">Discount rate (%)<input type="number" id="f-discountPct" min="0" max="30" step="0.5"></label><label class="field">Energy price annual change (%)<input type="number" id="f-utilityEscalationPct" min="-10" max="30" step="0.5"></label><label class="field">Export tariff annual change (%)<input type="number" id="f-exportEscalationPct" min="-10" max="30" step="0.5"></label><label class="field">Operating costs annual change (%)<input type="number" id="f-expenseEscalationPct" min="-10" max="30" step="0.5"></label><label class="field">Inverter replacement year<input type="number" id="f-replacementYear" min="0" max="40" step="1"></label><label class="field">Inverter replacement cost<input type="number" id="f-replacementCost" min="0" step="50"></label><label class="field">Grid CO2 factor (kg/kWh)<input type="number" id="f-co2KgPerKwh" min="0" max="3" step="0.01"></label></div></details></article>
+  <article class="finance-result"><div class="stage-overline">PROJECT ECONOMICS / MODELLED RETURNS</div><div class="finance-big"><small>Net present value</small><strong id="financeNpv">--</strong><p>Positive NPV means the modeled investment exceeds the discount-rate hurdle. It is not a guarantee.</p></div><div class="finance-stat-grid"><div><small>Internal rate of return</small><strong id="financeIrr">--</strong></div><div><small>Initial cash cost</small><strong id="financeInitial">--</strong></div><div><small>Lifetime net benefit</small><strong id="financeLifetime">--</strong></div><div><small>Discounted payback</small><strong id="financeDiscounted">--</strong></div></div><div class="finance-separator"></div><div class="stage-overline">OPTIONAL LOAN &amp; LEVERED EQUITY</div><div class="input-grid"><label class="field">Loan share (%)<input type="number" id="loanShare" min="0" max="100" step="5" value="0"></label><label class="field">Loan APR (%)<input type="number" id="loanApr" min="0" max="35" step="0.25" value="5"></label><label class="field">Loan term (years)<input type="number" id="loanYears" min="1" max="40" step="1" value="10"></label></div><div class="finance-stat-grid smaller"><div><small>Levered Equity NPV</small><strong id="equityNpv">--</strong></div><div><small>Annual debt service</small><strong id="annualLoan">--</strong></div></div></article></div>
+  <article class="surface large-card"><div class="card-heading"><div><div class="overline">FULL AUDIT TRAIL</div><h3>Lifetime cash-flow ledger.</h3><p id="ledgerInfo">Annual production, savings, export income, operating costs, and cumulative balance.</p></div></div><div class="table-wrap"><table><thead><tr><th>Year</th><th>Production</th><th>Self-use</th><th>Export</th><th>Bill avoidance</th><th>Export income</th><th>Opex / replacement</th><th>Net cash</th><th>Discounted CF</th><th>Cumulative</th></tr></thead><tbody id="ledgerRows"></tbody></table></div></article>
+</section>
+
+<!-- PAGE 09: DATA INTEGRITY & EVIDENCE -->
+<section id="page-evidence" class="page" hidden data-page="evidence"><div class="page-title"><div><div class="overline">09 / DATA INTEGRITY &amp; CITATIONS</div><h1>Evidence over <em>exaggeration.</em></h1><p>Every climate dataset, hardware specification, degradation rate, and regulatory tariff benchmark in Aurora v7.0 is traceable to primary scientific and industry sources.</p></div><button type="button" class="button button-dark" id="checkAPI">Check Live API Status &nearr;</button></div>
+  <div class="evidence-grid">
+    <article class="evidence-card"><div class="num-arc">01</div><h3>EU JRC PVGIS 5.3 &amp; NREL NSRDB</h3><p>36 benchmark cities use PVGIS-SARAH3 (2005–2023) and NREL PVWatts v8 / NSRDB solar irradiation series, supplemented by live PVGIS edge proxy and Open-Meteo satellite radiation APIs.</p><a href="https://joint-research-centre.ec.europa.eu/photovoltaic-geographical-information-system-pvgis/using-pvgis-5/api-non-interactive-service_en" target="_blank" rel="noopener noreferrer">EU JRC PVGIS 5.3 Documentation &nearr;</a></article>
+    <article class="evidence-card"><div class="num-arc">02</div><h3>NREL Cost &amp; Degradation Physics</h3><p>System capex and degradation curves reference NREL US Solar Cost Benchmarks ($2.95–$3.25/W), Jordan &amp; Kurtz (0.5%/yr median c-Si), and 2026 N-Type TOPCon/HJT/IBC linear warranties (0.25%–0.40%/yr).</p><a href="https://www.nlr.gov/solar/market-research-analysis/solar-installed-system-cost" target="_blank" rel="noopener noreferrer">NREL Solar Cost Benchmark &nearr;</a></article>
+    <article class="evidence-card"><div class="num-arc">03</div><h3>2026 Global Tariffs &amp; Net Billing</h3><p>National policy cards reflect 2026 rules including Greek Net Billing (ΔΕΔΔΗΕ 20-yr day-ahead contracts), German EEG 2026 &amp; 0% VAT, Spanish Surplus Compensation, and California NEM 3.0.</p><a href="https://www.surgepv.com/solar-compliance/comparisons/net-metering-by-country" target="_blank" rel="noopener noreferrer">Global Net Metering Comparison &nearr;</a></article>
+  </div>
+  <div class="two-col"><article class="surface large-card"><div class="card-heading"><div><div class="overline">DATA LINEAGE</div><h3>The information behind your report.</h3></div></div><div id="lineageRows" class="lineage"></div><div id="apiHealth" class="api-health" role="status">Click "Check Live API Status" to test Cloudflare Worker &amp; Open-Meteo endpoints.</div></article><article class="surface large-card"><div class="card-heading"><div><div class="overline">BEFORE YOU INVEST</div><h3>Practical due diligence &amp; assumption audit.</h3><p>Verify these items against your physical roof and utility contract before signing an installation quote.</p></div></div><div id="evidenceAuditFlags" class="audit-flags" style="margin-bottom:16px"></div><div class="checks"><label><input type="checkbox"> Real electricity bills and avoidable per-kWh variable charges</label><label><input type="checkbox"> Structural roof inspection, setbacks, rafters and shade survey</label><label><input type="checkbox"> Written PV, inverter and LFP battery cost breakdown, VAT and warranties</label><label><input type="checkbox"> Grid export / net-billing contract terms and inverter export limits</label><label><input type="checkbox"> Eligibility and documentation for any stated national grants or tax deductions</label><label><input type="checkbox"> Actual 12-month hourly consumption profile aligned to UTC</label><label><input type="checkbox"> Battery throughput warranty (MWh/cycles) and inverter replacement economics</label></div></article></div>
+  
+  <article class="surface large-card" id="legalSupportSection">
+    <div class="card-heading">
+      <div>
+        <div class="overline">10 / PRIVACY, TERMS, REFUND POLICY &amp; SUPPORT</div>
+        <h3>Transparent Governance &amp; Buyer Protection.</h3>
+        <p>Clear operational boundaries, local-first data privacy, and support channels.</p>
+      </div>
+      <span class="pill">GDPR / Local-First</span>
+    </div>
+    <div class="evidence-grid" style="margin-top:14px;margin-bottom:0">
+      <div class="evidence-card" style="min-height:0">
+        <div class="num-arc">PRIVACY &amp; DATA RETENTION</div>
+        <h3>Local-First Processing</h3>
+        <p>Imported 15/30/60-minute electricity meter CSVs and quote figures are parsed in-memory in your browser. Scenarios are stored in your browser's <code>localStorage</code> and can be exported or cleared at any time.</p>
+      </div>
+      <div class="evidence-card" style="min-height:0">
+        <div class="num-arc">TERMS &amp; ENGINEERING SCOPE</div>
+        <h3>Decision Aid, Not a Site Survey</h3>
+        <p>SolarPayback Aurora provides independent financial and physical modeling. It does not replace a licensed structural engineer's roof load inspection, on-site shade measurement, licensed electrician sign-off, or tax advisor review.</p>
+      </div>
+      <div class="evidence-card" style="min-height:0">
+        <div class="num-arc">PRICING, ENTITLEMENT &amp; REFUNDS</div>
+        <h3>Free Synopsis vs. Paid Audit Report</h3>
+        <p>The free tier provides an unverified location PVGIS estimate and preliminary synopsis. Paid server-signed reports (€29 single-quote / €59 3-quote comparison) require verified Stripe Checkout, store immutable PDFs in private R2 storage, and include a 14-day refund &amp; GDPR erasure right (<code>DELETE /api/customer/data</code>).</p>
+      </div>
+    </div>
+  </article>
+
+  <div class="legal-panel"><strong>Methodology boundary</strong><p>PVGIS and NREL benchmarks describe historical solar resource; they do not inspect your exact roof obstacles, predict future retail electricity prices, verify your utility bill, guarantee a subsidy or replace licensed electrical engineering or tax advice. SolarPayback Aurora stores scenarios locally in your browser.</p></div>
+</section>
+
+<footer class="site-footer"><div>solar<span>payback</span> &nbsp; / &nbsp; AURORA 7.5.0</div><p>Transparent climate provenance. Independent quote &amp; bill decomposition. Auditable 25-year financial math.</p><span>2026 &copy; SolarPayback Studio</span></footer>
+</main></div></div>
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+<dialog id="saveDialog"><form method="dialog" class="dialog-inner"><div class="overline">PRESERVE THIS POSSIBILITY</div><h2>Save your scenario.</h2><label class="field">Name <input id="scenarioName" type="text" maxlength="70" placeholder="e.g. Athens 6 kWp + BYD 10.2 kWh"></label><div class="card-actions"><button type="button" class="button button-ghost" id="cancelSave">Cancel</button><button type="button" class="button button-accent" id="confirmSave">Save locally</button></div></form></dialog>
+</body></html>

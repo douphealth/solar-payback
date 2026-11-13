@@ -1,13 +1,15 @@
 {
-  "name": "solar-payback",
-  "version": "1.0.0",
+  "name": "solarpayback-aurora-enterprise",
+  "version": "7.5.0",
   "private": true,
   "type": "module",
-  "description": "Evidence-led solar energy and financial payback dashboard",
+  "description": "SolarPayback Aurora v7.5.0 — Independent Solar Quote & Electricity Bill Check with EU JRC PVGIS 5.3 Proxy, Stripe Checkout/Webhooks, and D1/R2 Report Fulfillment",
   "scripts": {
-    "test": "node --test tests/*.test.js",
+    "test": "node --test tests/audit-verification.test.mjs",
     "build": "node scripts/build.mjs",
     "check": "npm test && npm run build"
   },
-  "engines": { "node": ">=20" }
+  "engines": {
+    "node": ">=20"
+  }
 }

@@ -1,0 +1,16 @@
+{
+  "name": "SolarPayback Aurora Enterprise",
+  "version": "7.5.0",
+  "engineVersion": "7.5.0",
+  "schemaVersion": "7.5.0",
+  "auditRemediation": [
+    "Version Alignment: Synchronized 7.4.0 across package.json, MANIFEST.json, schema.sql, _worker.js, src/engine.js, index.html, and assets/app.js",
+    "P0-1 (Stripe Checkout): Replaced fabricated cs_live_ IDs with real POST https://api.stripe.com/v1/checkout/sessions API call in _worker.js",
+    "P0-2 (Auth & Cache Security): Default Cache-Control is 'private, no-store'; HMAC-SHA256 signed session tokens and strict customer_id ownership checks on all project/order/report routes",
+    "P0-3 (Schema Consolidation): Aligned all Worker SQL queries strictly to the 8 canonical tables in schema.sql and uncommented D1/R2 bindings in wrangler.toml",
+    "P0-4 (Real R2 PDF Fulfillment): Webhook generates binary PDF and uploads via env.REPORTS_BUCKET.put before marking report active; serves via authenticated GET /api/reports/:orderId/download",
+    "P0-5 (Refund & Atomic Webhooks): Maps Stripe charge.refunded (Charge ch_... / payment_intent pi_...) to orders; records stripe_events only after DB & R2 fulfillment succeeds",
+    "P0-7 (Binary PDF Input): Added extractTextFromPdfBytes(uint8Array) in src/engine.js and enabled .pdf uploads on #quoteDocFile"
+  ],
+  "testCommand": "node --test tests/audit-verification.test.mjs"
+}

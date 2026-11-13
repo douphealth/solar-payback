@@ -1,0 +1,14 @@
+# Template ONLY — create a real D1 database and R2 bucket before deployment.
+# This example intentionally does not contain a fabricated production database ID.
+name = "solarpayback-aurora"
+pages_build_output_dir = "dist"
+compatibility_date = "2026-11-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "solarpayback-db"
+database_id = "REPLACE_WITH_REAL_D1_DATABASE_ID"
+
+[[r2_buckets]]
+binding = "REPORTS_BUCKET"
+bucket_name = "solarpayback-reports"
