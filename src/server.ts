@@ -3,6 +3,7 @@ import "./lib/error-capture";
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
 import { seoPreflight, seoRewrite } from "./lib/seo-edge";
+import { withEdgeCache } from "./lib/edge-cache";
 
 type ServerEntry = {
   fetch: (request: Request, env: unknown, ctx: unknown) => Promise<Response> | Response;
@@ -53,9 +54,6 @@ function isH3SwallowedErrorBody(body: string): boolean {
 // per-user data (scenarios live in the browser), so a short shared cache is safe.
 const HTML_CACHE_SECONDS = 6 * 60 * 60;
 const CACHEABLE_PREFIXES = ["/cities", "/countries", "/compare", "/methodology", "/about", "/privacy", "/terms", "/contact"];
-function edgeCache(): Cache | undefined {
-  try { return (globalThis as unknown as { caches?: { default?: Cache } }).caches?.default; } catch { return undefined; }
-}
 function isCacheable(request: Request) {
   if (request.method !== "GET") return false;
   const url = new URL(request.url);
@@ -66,22 +64,16 @@ export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     const redirect = seoPreflight(request);
     if (redirect) return redirect;
-    const cache = isCacheable(request) ? edgeCache() : undefined;
-    if (cache) {
-      const hit = await cache.match(request.url).catch(() => undefined);
-      if (hit) return hit;
-    }
-    try {
+    const render = async () => {
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
-      const final = seoRewrite(request, await normalizeCatastrophicSsrResponse(response));
-      if (cache && final.status === 200 && (final.headers.get("content-type") ?? "").includes("text/html") && !final.headers.has("set-cookie")) {
-        const stored = new Response(final.clone().body, final);
-        stored.headers.set("cache-control", `public, max-age=${HTML_CACHE_SECONDS}`);
-        const put = cache.put(request.url, stored).catch(() => undefined);
-        (ctx as { waitUntil?: (p: Promise<unknown>) => void } | undefined)?.waitUntil?.(put);
-      }
-      return final;
+      return seoRewrite(request, await normalizeCatastrophicSsrResponse(response));
+    };
+    try {
+      // Data changes only on deploy: fresh for 6 h, then served instantly while re-rendering for up to
+      // 7 days. The cache key includes the build id, so a deploy starts a clean cache. See lib/edge-cache.ts.
+      if (!isCacheable(request)) return await render();
+      return await withEdgeCache(request, ctx, { ttl: HTML_CACHE_SECONDS, swr: 7 * 24 * 60 * 60 }, render);
     } catch (error) {
       console.error(error);
       return new Response(renderErrorPage(), {

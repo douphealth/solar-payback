@@ -10,6 +10,9 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 export default defineConfig({
+  // Unique per build: part of the edge-cache key (src/lib/edge-cache.ts), so a deploy never serves
+  // cached HTML that points at the previous build's asset files.
+  vite: { define: { __BUILD_ID__: JSON.stringify(Date.now().toString(36)) } },
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this
