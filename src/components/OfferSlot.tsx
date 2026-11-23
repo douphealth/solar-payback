@@ -5,8 +5,10 @@ import { OFFER_SLOTS, OFFER_LINKS, type OfferSlotId } from "@/monetize.config";
  * so unconfigured slots never ship empty boxes. Always labelled and kept apart from research content.
  */
 export function OfferSlot({ id, itemKey, context }: { id: OfferSlotId; itemKey?: string; context?: string }) {
-  const slot = OFFER_SLOTS[id];
-  const url = (itemKey && OFFER_LINKS[itemKey]) || slot?.url;
+  const base = OFFER_SLOTS[id];
+  const link = itemKey ? OFFER_LINKS[itemKey] : undefined;
+  const slot = base && (typeof link === "object" ? { ...base, ...link } : base);
+  const url = (typeof link === "string" ? link : link?.url) || base?.url;
   if (!slot || !url) return null;
   const fill = (t: string) => t.replace(/\{context\}/g, context ?? "").replace(/\s+/g, " ").trim();
   return (
