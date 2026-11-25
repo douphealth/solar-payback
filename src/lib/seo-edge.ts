@@ -20,6 +20,7 @@ const ADSENSE = String((SEO as { adsenseClient?: string }).adsenseClient ?? "").
 const CANON_HOST = new URL(ORIGIN).hostname;
 // Site-wide social preview image (1200x630, public/og-image.png). Used only on pages that set no og:image.
 const OG_IMAGE = `${ORIGIN}${(SEO as { ogImage?: string }).ogImage ?? "/og-image.png"}`;
+const PATH_LANG: Record<string, string> = (SEO as { pathLang?: Record<string, string> }).pathLang ?? {};
 const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
 
 function canonicalPath(pathname: string) {
@@ -70,7 +71,7 @@ function graph(url: URL, title: string, description: string, existing: string) {
   const hasCrumbs = segs.length > 0 && !/"BreadcrumbList"/.test(existing);
   if (!/"WebPage"|"CollectionPage"|"AboutPage"|"FAQPage"|"Article"/.test(existing)) nodes.push({
     "@type": "WebPage", "@id": `${pageUrl}#webpage`, url: pageUrl, name: cleanTitle(title), ...(description ? { description } : {}),
-    isPartOf: { "@id": `${ORIGIN}/#website` }, inLanguage: SEO.lang, ...(hasCrumbs ? { breadcrumb: { "@id": `${pageUrl}#breadcrumb` } } : {}),
+    isPartOf: { "@id": `${ORIGIN}/#website` }, inLanguage: PATH_LANG[path] ?? SEO.lang, ...(hasCrumbs ? { breadcrumb: { "@id": `${pageUrl}#breadcrumb` } } : {}),
   });
   if (hasCrumbs) nodes.push({
     "@type": "BreadcrumbList", "@id": `${pageUrl}#breadcrumb`,
@@ -89,7 +90,9 @@ export function seoRewrite(request: Request, response: Response): Response {
   const canonical = `${ORIGIN}${canonicalPath(url.pathname)}`;
   const s = { canonical: false, ogUrl: false, robots: false, noindex: false, ogImage: false, twCard: false, title: "", desc: "", ld: "" };
   const onCanon = (h: string | null) => !h || !h.startsWith(ORIGIN);
+  const lang = PATH_LANG[canonicalPath(url.pathname)];
   return new Ctor()
+    .on("html", { element: (el: { setAttribute(n: string, v: string): void }) => { if (lang) el.setAttribute("lang", lang); } })
     .on('link[rel="canonical"]', { element: (el: { getAttribute(n: string): string | null; setAttribute(n: string, v: string): void }) => { s.canonical = true; if (onCanon(el.getAttribute("href"))) el.setAttribute("href", canonical); } })
     .on('meta[property="og:url"]', { element: (el: { getAttribute(n: string): string | null; setAttribute(n: string, v: string): void }) => { s.ogUrl = true; if (onCanon(el.getAttribute("content"))) el.setAttribute("content", canonical); } })
     .on('meta[name="robots"]', { element: (el: { getAttribute(n: string): string | null }) => { s.robots = true; if (/noindex/i.test(el.getAttribute("content") ?? "")) s.noindex = true; } })

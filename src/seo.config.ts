@@ -8,6 +8,8 @@ export const SEO = {
   name: "SolarPayback",
   description: "Independent solar payback calculator using live EU PVGIS data: compare European cities, check installer quotes and export a transparent investment report (payback, NPV, IRR).",
   lang: "en",
+  // Pages in another language: sets <html lang> and JSON-LD inLanguage for that path.
+  pathLang: { "/balkonkraftwerk-rechner": "de" } as Record<string, string>,
   logo: "/favicon.png" as string | undefined,
   sameAs: [] as string[],
   sectionNames: {} as Record<string, string>,
@@ -26,6 +28,7 @@ export function seoPages(): SeoPage[] {
     { path: "/", title: "SolarPayback — When will solar panels pay for themselves?", section: "Tools" },
     { path: "/calculator", title: "Solar payback calculator (NPV & IRR)", section: "Tools" },
     { path: "/compare", title: "Compare solar yield by city", section: "Tools" },
+    { path: "/balkonkraftwerk-rechner", title: "Balkonkraftwerk-Rechner (German): balcony solar yield and payback with the 800 W cap", section: "Tools" },
     { path: "/cities", title: "Solar yield by city", section: "Cities" },
     { path: "/methodology", title: "Methodology", section: "About" },
     { path: "/about", title: "About", section: "About" },

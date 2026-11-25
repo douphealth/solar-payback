@@ -27,10 +27,10 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
 export function SiteFooter() {
   return <footer className="mt-24 bg-night text-night-foreground"><div className="mx-auto grid max-w-6xl gap-10 px-5 py-14 sm:grid-cols-2 lg:grid-cols-4">
     <div><p className="font-display text-2xl">SolarPayback</p><p className="mt-3 text-sm leading-relaxed text-night-muted">Independent solar payback estimates built on EU JRC PVGIS data. No installer commissions, sponsored rankings or lead selling.</p></div>
-    <FooterLinks title="Explore" links={[["Payback calculator", "/calculator"], ["City solar directory", "/cities"], ["Compare cities", "/compare"], ["Saved scenarios", "/scenarios"]]} />
+    <FooterLinks title="Explore" links={[["Payback calculator", "/calculator"], ["City solar directory", "/cities"], ["Compare cities", "/compare"], ["Balkonkraftwerk-Rechner (DE)", "/balkonkraftwerk-rechner"], ["Saved scenarios", "/scenarios"]]} />
     <FooterLinks title="Understand" links={[["Methodology & limits", "/methodology"], ["About SolarPayback", "/about"], ["Contact & corrections", "/contact"]]} />
     <div className="text-sm"><p className="mb-3 font-semibold">Trust</p><ul className="space-y-2 text-night-muted"><li><Link to="/privacy" className="hover:text-night-foreground">Privacy</Link></li><li><Link to="/terms" className="hover:text-night-foreground">Terms & estimates</Link></li><li><a href="https://github.com/douphealth/solar-payback" target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 hover:text-night-foreground">Source repository<ArrowUpRight className="h-3 w-3" /></a></li></ul><p className="mt-5 text-xs leading-relaxed text-night-muted">Estimates only — not financial, tax or engineering advice. Solar data © European Union, PVGIS (JRC). Geocoding by Open-Meteo.</p></div>
   </div></footer>;
 }
-type FooterPath = "/calculator" | "/cities" | "/compare" | "/scenarios" | "/methodology" | "/about" | "/contact";
+type FooterPath = "/calculator" | "/cities" | "/compare" | "/balkonkraftwerk-rechner" | "/scenarios" | "/methodology" | "/about" | "/contact";
 function FooterLinks({ title, links }: { title: string; links: readonly (readonly [string, FooterPath])[] }) { return <div className="text-sm"><p className="mb-3 font-semibold">{title}</p><ul className="space-y-2 text-night-muted">{links.map(([label, to]) => <li key={to}><Link to={to} className="hover:text-night-foreground">{label}</Link></li>)}</ul></div>; }

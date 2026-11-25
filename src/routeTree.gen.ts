@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as BalkonkraftwerkRechnerRouteImport } from './routes/balkonkraftwerk-rechner'
 import { Route as CalculatorRouteImport } from './routes/calculator'
 import { Route as CompareRouteImport } from './routes/compare'
 import { Route as ContactRouteImport } from './routes/contact'
@@ -32,6 +33,11 @@ const IndexRoute = IndexRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BalkonkraftwerkRechnerRoute = BalkonkraftwerkRechnerRouteImport.update({
+  id: '/balkonkraftwerk-rechner',
+  path: '/balkonkraftwerk-rechner',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CalculatorRoute = CalculatorRouteImport.update({
@@ -98,6 +104,7 @@ const CountriesSlugRoute = CountriesSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/balkonkraftwerk-rechner': typeof BalkonkraftwerkRechnerRoute
   '/calculator': typeof CalculatorRoute
   '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
@@ -114,6 +121,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/balkonkraftwerk-rechner': typeof BalkonkraftwerkRechnerRoute
   '/calculator': typeof CalculatorRoute
   '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
@@ -131,6 +139,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/balkonkraftwerk-rechner': typeof BalkonkraftwerkRechnerRoute
   '/calculator': typeof CalculatorRoute
   '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
@@ -149,6 +158,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/balkonkraftwerk-rechner'
     | '/calculator'
     | '/compare'
     | '/contact'
@@ -165,6 +175,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/balkonkraftwerk-rechner'
     | '/calculator'
     | '/compare'
     | '/contact'
@@ -181,6 +192,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/balkonkraftwerk-rechner'
     | '/calculator'
     | '/compare'
     | '/contact'
@@ -198,6 +210,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  BalkonkraftwerkRechnerRoute: typeof BalkonkraftwerkRechnerRoute
   CalculatorRoute: typeof CalculatorRoute
   CompareRoute: typeof CompareRoute
   ContactRoute: typeof ContactRoute
@@ -226,6 +239,13 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/balkonkraftwerk-rechner': {
+      id: '/balkonkraftwerk-rechner'
+      path: '/balkonkraftwerk-rechner'
+      fullPath: '/balkonkraftwerk-rechner'
+      preLoaderRoute: typeof BalkonkraftwerkRechnerRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/calculator': {
@@ -318,6 +338,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  BalkonkraftwerkRechnerRoute: BalkonkraftwerkRechnerRoute,
   CalculatorRoute: CalculatorRoute,
   CompareRoute: CompareRoute,
   ContactRoute: ContactRoute,

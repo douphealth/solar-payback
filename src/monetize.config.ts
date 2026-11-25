@@ -14,7 +14,7 @@ export const OFFER_SLOTS: Record<OfferSlotId, OfferSlot> = {
 export type OfferLink = string | ({ url: string } & Partial<Omit<OfferSlot, "url">>);
 
 // Otovo DE (Awin advertiser 42788, publisher 2088065): solar installer, Germany only.
-const OTOVO_DE: OfferLink = {
+export const OTOVO_DE: OfferLink = {
   url: "https://www.awin1.com/cread.php?awinmid=42788&awinaffid=2088065",
   partner: "Otovo",
   heading: "Get a solar price for your roof in {context}",
@@ -23,7 +23,7 @@ const OTOVO_DE: OfferLink = {
 };
 
 // Anker SOLIX DE (Awin advertiser 32623, publisher 2088065): balcony solar and batteries, German shop. 5-8% CPA, 30-day cookie.
-const ANKER_SOLIX_DE: OfferLink = {
+export const ANKER_SOLIX_DE: OfferLink = {
   url: "https://www.awin1.com/cread.php?awinmid=32623&awinaffid=2088065",
   partner: "Anker SOLIX",
   heading: "Starting smaller? Plug-in balcony solar in {context}",

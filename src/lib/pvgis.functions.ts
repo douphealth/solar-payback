@@ -1,9 +1,9 @@
 import { createServerFn } from "@tanstack/react-start";
 import { setResponseHeader } from "@tanstack/react-start/server";
 import { z } from "zod";
-import { fetchDirectoryProfiles, fetchGeocode, fetchSolarProfile, type SolarProfile } from "./pvgis.server";
+import { fetchClipCurve, fetchDirectoryProfiles, fetchGeocode, fetchSolarProfile, type ClipCurve, type SolarProfile } from "./pvgis.server";
 
-export type { SolarProfile } from "./pvgis.server";
+export type { ClipCurve, SolarProfile } from "./pvgis.server";
 
 const profileInput = z.object({
   lat: z.number().min(-60).max(72), lon: z.number().min(-180).max(180),
@@ -31,4 +31,12 @@ export const geocode = createServerFn({ method: "GET" })
   .handler(async ({ data }) => {
     setResponseHeader("cache-control", "public, s-maxage=86400, stale-while-revalidate=604800");
     return fetchGeocode(data.q);
+  });
+
+/** Share of yearly energy kept under an inverter cap, from one year of PVGIS hourly output (null if PVGIS fails). */
+export const getClipCurve = createServerFn({ method: "GET" })
+  .inputValidator((d: z.input<typeof profileInput>) => profileInput.parse(d))
+  .handler(async ({ data }): Promise<ClipCurve | null> => {
+    setResponseHeader("cache-control", "public, s-maxage=2592000, stale-while-revalidate=2592000");
+    return fetchClipCurve(data);
   });

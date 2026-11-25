@@ -134,3 +134,45 @@ export async function fetchDirectoryProfiles(places: { slug: string; lat: number
   await Promise.all(Array.from({ length: Math.min(6, places.length) }, worker));
   return out;
 }
+
+// ---- Inverter clipping (balcony solar) ----
+// Plug-in systems in Germany are capped at 800 W inverter output while panels may total up to 2,000 Wp,
+// so annual yield depends on how often hourly output exceeds the cap. PVGIS seriescalc gives one year of
+// hourly output for 1 kWp; from it we store the share of energy kept at each cap/panel ratio.
+export type ClipCurve = { year: number; ratios: number[]; retained: number[]; fetchedAt: string };
+export const CLIP_YEAR = 2023;
+export const CLIP_RATIOS = Array.from({ length: 19 }, (_, i) => Math.round((0.1 + i * 0.05) * 100) / 100);
+const clipCache = new Map<string, { curve: ClipCurve; storedAt: number }>();
+const seriesSchema = z.object({ outputs: z.object({ hourly: z.array(z.object({ P: z.number() })).min(8000) }) });
+
+export function clipCurveFromHourly(watts: number[]): Omit<ClipCurve, "fetchedAt"> {
+  const kw = watts.map((w) => Math.max(0, w) / 1000);
+  const total = kw.reduce((s, p) => s + p, 0) || 1;
+  return { year: CLIP_YEAR, ratios: CLIP_RATIOS, retained: CLIP_RATIOS.map((r) => Math.round((kw.reduce((s, p) => s + Math.min(p, r), 0) / total) * 10000) / 10000) };
+}
+
+export async function fetchClipCurve(q: ProfileQuery): Promise<ClipCurve | null> {
+  const key = "clip:" + [q.lat.toFixed(3), q.lon.toFixed(3), q.angle, q.aspect, q.loss].join(":");
+  const mem = clipCache.get(key);
+  if (mem) return mem.curve;
+  const c = edgeCache();
+  if (c) {
+    try { const r = await c.match(EDGE_CACHE_HOST + encodeURIComponent(key)); if (r) { const e = (await r.json()) as { curve: ClipCurve; storedAt: number }; clipCache.set(key, e); return e.curve; } } catch { /* miss */ }
+  }
+  const u = new URL("https://re.jrc.ec.europa.eu/api/v5_3/seriescalc");
+  u.search = new URLSearchParams({ lat: q.lat.toFixed(3), lon: q.lon.toFixed(3), peakpower: "1", loss: String(q.loss), angle: String(q.angle), aspect: String(q.aspect), pvcalculation: "1", startyear: String(CLIP_YEAR), endyear: String(CLIP_YEAR), outputformat: "json" }).toString();
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), 15000);
+  try {
+    const res = await fetchWithRetry(u, ctrl.signal);
+    if (!res.ok) return null;
+    const parsed = seriesSchema.safeParse(await res.json());
+    if (!parsed.success) return null;
+    const curve: ClipCurve = { ...clipCurveFromHourly(parsed.data.outputs.hourly.map((h) => h.P)), fetchedAt: new Date().toISOString() };
+    const entry = { curve, storedAt: Date.now() };
+    if (clipCache.size >= 300) clipCache.delete(clipCache.keys().next().value!);
+    clipCache.set(key, entry);
+    if (c) { try { await c.put(EDGE_CACHE_HOST + encodeURIComponent(key), new Response(JSON.stringify(entry), { headers: { "content-type": "application/json", "cache-control": "public, max-age=2592000" } })); } catch { /* best effort */ } }
+    return curve;
+  } catch { return null; } finally { clearTimeout(timer); }
+}

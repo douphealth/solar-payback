@@ -6,6 +6,7 @@ import { getDirectoryProfiles } from "@/lib/pvgis.functions";
 import { calculate, DEFAULTS, num } from "@/lib/solar";
 import { Button } from "@/components/ui/button";
 import { OfferSlot } from "@/components/OfferSlot";
+import { BalkonLink } from "@/components/BalkonLink";
 import { AmazonPicks } from "@/components/AmazonPicks";
 import { SOLAR_PICKS } from "@/lib/amazon-picks";
 
@@ -40,6 +41,7 @@ function CountryPage() {
     <p className="mt-8 text-sm font-semibold uppercase tracking-[0.2em] text-primary">Country solar guide</p><h1 className="mt-3 text-4xl font-semibold sm:text-6xl">Solar panels in {country.name}</h1><p className="mt-4 max-w-3xl text-lg leading-relaxed text-muted-foreground">{country.intro}</p>
     <div className="mt-8 grid gap-4 sm:grid-cols-3"><Info icon={WalletCards} label="Calculator currency" value={country.currency} /><Info icon={Languages} label="Local language" value={country.language} /><Info icon={FileCheck2} label="Cities compared" value={`${entries.length} · average ${average ? num(average) : "—"} kWh/kWp`} /></div>
     <section className="mt-10 rounded-3xl border border-border bg-card p-6 shadow-soft"><div className="flex flex-wrap items-end justify-between gap-4"><div><h2 className="text-3xl font-semibold">City solar yields</h2><p className="mt-1 text-sm text-muted-foreground">Consistent PVGIS assumptions make differences easier to interpret.</p></div><Button asChild variant="outline"><Link to="/compare" search={{ cities: entries.map((e) => e.city.slug).slice(0, 3) }}>Compare these cities<ArrowRight /></Link></Button></div><div className="mt-6 space-y-3">{entries.map(({ city, profile }) => { const result = profile ? calculate({ ...DEFAULTS, annualKwhPerKwp: profile.annualKwhPerKwp }) : null; return <Link key={city.slug} to="/cities/$slug" params={{ slug: city.slug }} className="grid gap-3 rounded-2xl border border-border p-4 transition hover:border-primary sm:grid-cols-[1fr_1fr_1fr_auto] sm:items-center"><span className="font-display text-xl font-semibold">{city.name}</span><span className="text-sm"><span className="text-muted-foreground">Yield </span><strong>{profile ? `${num(profile.annualKwhPerKwp)} kWh/kWp` : "Unavailable"}</strong></span><span className="text-sm"><span className="text-muted-foreground">Reference payback </span><strong>{result?.payback != null ? `${num(result.payback, 1)} years` : "—"}</strong></span><ArrowRight className="hidden h-5 w-5 text-primary sm:block" /></Link>; })}</div><p className="mt-4 text-xs text-muted-foreground">Reference payback is illustrative and not a local market quote. Use each city's calculator for your own figures.</p></section>
+    {country.slug === "germany" && <BalkonLink />}
     <OfferSlot id="installer-quotes" itemKey={`country:${country.slug}`} context={country.name} />
     <OfferSlot id="balcony-solar" itemKey={`balcony:country:${country.slug}`} context={country.name} />
     <AmazonPicks title={`Tools to sharpen your ${country.name} solar estimate`} intro="Knowing when you use electricity matters as much as panel size." picks={SOLAR_PICKS} />
@@ -88,3 +90,4 @@ function CountryInsights({ country, entries }: { country: { name: string; offici
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: ld }} /></section>
   </>;
 }
+

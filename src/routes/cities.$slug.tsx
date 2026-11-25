@@ -9,6 +9,7 @@ import { getDirectoryProfiles, getSolarProfile } from "@/lib/pvgis.functions";
 import { DEFAULTS, calculate, money, num } from "@/lib/solar";
 import { Button } from "@/components/ui/button";
 import { OfferSlot } from "@/components/OfferSlot";
+import { BalkonLink } from "@/components/BalkonLink";
 import { AmazonPicks } from "@/components/AmazonPicks";
 import { SOLAR_PICKS } from "@/lib/amazon-picks";
 
@@ -74,6 +75,7 @@ function CityPage() {
 
     <section className="mt-12 grid gap-6 md:grid-cols-3"><Insight title="What a 5 kWp system means">At this location's modelled yield, a 5 kWp first-year array would produce about <strong>{num(profile.annualKwhPerKwp * 5)} kWh</strong>. Your usable savings depend on when you consume electricity, not just this total.</Insight><Insight title={`Versus ${city.country}`}>This profile is <strong>{num(Math.abs(vsCountry), 1)}% {vsCountry >= 0 ? "above" : "below"}</strong> the average of the {countryYields.length} {city.country} {countryYields.length === 1 ? "city" : "cities"} currently in this directory. That is a comparison of modelled city-centre points, not roof suitability.</Insight><Insight title="Seasonality matters">Output peaks in {MONTHS[best.month - 1]} and bottoms in {MONTHS[worst.month - 1]}. A high annual total can still leave winter imports; batteries and tariffs need an hourly assessment.</Insight></section>
 
+    {city.countrySlug === "germany" && <div className="mx-auto max-w-6xl px-5"><BalkonLink /></div>}
     <OfferSlot id="installer-quotes" itemKey={`city:${city.slug}`} context={city.name} />
     <OfferSlot id="balcony-solar" itemKey={`balcony:city:${city.slug}`} context={city.name} />
     <AmazonPicks title={`Tools to sharpen your ${city.name} solar estimate`} intro="Knowing when you use electricity matters as much as panel size." picks={SOLAR_PICKS} />
